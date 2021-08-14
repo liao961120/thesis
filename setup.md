@@ -24,19 +24,15 @@ keywords-en  : "Pandoc, LaTeX, Overleaf, Chinese, Thesis"
 # Acknowledgement
 acknowledgement-in-en: false  # true for english
 acknowledgement: | 
-    常到**外國朋友**家*吃飯*。當蠟燭燃起，菜肴布好，客主就位，總是主人家的小男孩或小女孩舉起小手，低頭感謝上天的賜予，並歡迎客人的到來。
-
-    ```python
-    print("hello world")  # 中文
-    ```
-
-    我剛到美國時，常鬧得尷尬。因為在國內養成的習慣，還沒有坐好，就開動了。
+    此論文的 LaTeX 模板是根據 [`Hsins/NTU-Thesis-LaTeX-Template`](https://github.com/Hsins/NTU-Thesis-LaTeX-Template) 修改而成。
 abstract: |
-    中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文摘要中文
-
-    第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段第二段
+    家公以務說小水寶房知，持進才課……子再書食國過亮好得著活小入小是次又日要生地化們年路幾學場內。投字資未病候為，始東有爭感已，了除車天成注氣。最花多友臺他應最子一多滿頭方我生字為了了石？前如各來常投到，重生賣大自。
+    
+    條立聽氣都在驚早。構每法我南化我竟他度人源這意戲算等！人產樂，的幾導看有與天種政過自念業聽多相長法三解夫國行星反不，排著止那書自個真響名神的然子率？出沒務我送任日；然人陸愛正兩人能定。
 abstract-en: |
-    English abstract. English abstract. English abstract. English abstract. English abstract. English abstract. English abstract.
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ########## Cross-ref options ###########
 linkReferences: true
 figureTitle: "Figure"
