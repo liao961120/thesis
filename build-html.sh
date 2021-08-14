@@ -1,11 +1,9 @@
-PANDOC='pandoc'
-CROSSREF='pandoc-crossref'
-if ([ ! -x "$(command -v pandoc)" ] || [ ! -x "$(command -v pandoc-crossref)" ]) && [ ! -f "./pandoc" ]; then
+# PANDOC='pandoc'
+# CROSSREF='pandoc-crossref'
+if [ ! -f "./pandoc" ]; then
     # Download Pandoc/Pandoc-crossref binaries
     curl https://yongfu.name/deps/pandoc.tar.xz -O
     tar xf pandoc.tar.xz
-    PANDOC='./pandoc'
-    CROSSREF='./pandoc-crossref'
 fi
 
 
@@ -34,7 +32,7 @@ tocChaptmp=$(<deps/tocChap.html)
 echo "${tocChaptmp//ANCHOR.TOCCHAP/$chaptoc}" > "tocChapTmp.html"
 
 # Build index page
-${PANDOC} setup.md chapters/denotations.md -o chapters/index.html \
+./pandoc setup.md chapters/denotations.md -o chapters/index.html \
     --template deps/main.html5 \
     -H deps/style.html \
     -A tocChapTmp.html \
@@ -49,12 +47,12 @@ for IN in chapters/*.md; do
     fi
     
     OUT=${IN/%md/html}
-    ${PANDOC} setup.md $IN -o $OUT \
+    ./pandoc setup.md $IN -o $OUT \
         --template deps/chapter.html5 \
         -H deps/style.html \
         -A tocChapTmp.html \
         -A deps/after-body.html \
-        -F ${CROSSREF} \
+        -F ./pandoc-crossref \
         --lua-filter deps/lua/pandoc-ling.lua \
         --lua-filter deps/lua/reference-title.lua \
         --bibliography chapters/references.bib \

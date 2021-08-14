@@ -1,18 +1,16 @@
-PANDOC='pandoc'
-CROSSREF='pandoc-crossref'
-if ([ ! -x "$(command -v pandoc)" ] || [ ! -x "$(command -v pandoc-crossref)" ]) && [ ! -f "./pandoc" ]; then
+# PANDOC='pandoc'
+# CROSSREF='pandoc-crossref'
+if [ ! -f "./pandoc" ]; then
     # Download Pandoc/Pandoc-crossref binaries
     curl https://yongfu.name/deps/pandoc.tar.xz -O
     tar xf pandoc.tar.xz
-    PANDOC='./pandoc'
-    CROSSREF='./pandoc-crossref'
 fi
 
 # Build LaTeX for overleaf
-${PANDOC} setup.md chapters/denotations.md deps/mainmatter.md \
+./pandoc setup.md chapters/denotations.md deps/mainmatter.md \
     chapters/0*.md deps/references.md chapters/appendix*.md \
     -s -o main.tex \
-    -F ${CROSSREF} \
+    -F ./pandoc-crossref \
     --lua-filter deps/lua/pandoc-ling.lua \
     --bibliography chapters/references.bib \
     --citeproc \
