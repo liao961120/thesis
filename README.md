@@ -52,7 +52,7 @@ VSCode 的擴充套件 [Markdown Preview Enhanced](https://marketplace.visualstu
 使用
 ------------------
 
-由於 LaTeX ([TeX Live](https://www.tug.org/texlive) 或 [MikTeX](https://miktex.org) 的安裝十分令人頭痛，而且即使安裝完成，後續生成 PDF 的過程仍會常常出錯。為了儘量避開這些問題，`ntuthesis2` 在設計上結合 [Overleaf](https://www.overleaf.com)，讓使用者能將輸出的 `.tex` 檔透過 (免費) 網路服務輸出成 PDF 檔。當然，若使用者個人電腦上已有 LaTeX，也可直接在電腦上輸出 PDF。此外，`ntuthesis2` 也提供一個相當簡約的 `.html` 輸出格式，目的是方便在撰寫時預覽論文 (因為 LaTeX 的輸出相當耗時)。
+由於 LaTeX ([TeX Live](https://www.tug.org/texlive) 或 [MikTeX](https://miktex.org)) 的安裝十分令人頭痛，而且即使安裝完成，後續生成 PDF 的過程仍會常常出錯。為了儘量避開這些問題，`ntuthesis2` 在設計上結合 [Overleaf](https://www.overleaf.com)，讓使用者能將輸出的 `.tex` 檔透過 (免費) 網路服務輸出成 PDF 檔。當然，若使用者個人電腦上已有 LaTeX，也可直接在電腦上輸出 PDF。此外，`ntuthesis2` 也提供一個相當簡約的 `.html` 輸出格式，目的是方便在撰寫時預覽論文 (因為 LaTeX 的輸出相當耗時)。
 
 
 ### 論文撰寫
