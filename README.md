@@ -78,7 +78,7 @@ VSCode 的擴充套件 [Markdown Preview Enhanced](https://marketplace.visualstu
     └── citation-style.csl # 引用格式 (至 zotero.org/styles 下載)
 ```
 
-更詳細的內容，請見[說明文件](https://liao961120.github.io/thesis)。
+更詳細的內容，請見[說明文件](https://liao961120.github.io/thesis/02-chapter2.html)。
 
 
 Issues
