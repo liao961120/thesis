@@ -11,3 +11,4 @@ pandoc.tar.xz
 *.aux
 *.fls
 thesisform.pdf.pdf
+docs/

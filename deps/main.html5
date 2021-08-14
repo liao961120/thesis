@@ -58,7 +58,11 @@
     <h2 id="abstract">摘要</h2>
     $abstract$
     $if(keywords)$
-    <span class="keywords">$keywords$</span>
+    <div class="keywords">
+    <span class="k-title">關鍵字：</span>
+    <span class="k-words">$keywords$</span>
+    </div>
+    
     $endif$
     $endif$
 
@@ -66,7 +70,11 @@
     <h2 id="abstract-en">Abstract</h2>
     $abstract-en$
     $if(keywords-en)$
-    <span class="keywords">$keywords-en$</span>
+    <div class="keywords">
+        <span class="k-title">Keywords: </span>
+        <span class="k-words">$keywords-en$</span>
+    </div>
+    
     $endif$
     $endif$
 
