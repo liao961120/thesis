@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="" >
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+<meta name="author" content="王小明" />
+<meta name="dcterms.date" content="2021-08-13" />
+<meta name="keywords" content="Pandoc, LaTeX, Overleaf, 中文, 論文" />
+<title>PlaceHolder</title>
+<style>
+html {
+  line-height: 1.5;
+  font-family: Georgia, serif;
+  font-size: 20px;
+  color: #1a1a1a;
+  background-color: #fdfdfd;
+}
+body {
+  margin: 0 auto;
+  max-width: 36em;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  hyphens: auto;
+  overflow-wrap: break-word;
+  text-rendering: optimizeLegibility;
+  font-kerning: normal;
+}
+@media (max-width: 600px) {
+  body {
+    font-size: 0.9em;
+    padding: 1em;
+  }
+}
+@media print {
+  body {
+    background-color: transparent;
+    color: black;
+    font-size: 12pt;
+  }
+  p, h2, h3 {
+    orphans: 3;
+    widows: 3;
+  }
+  h2, h3, h4 {
+    page-break-after: avoid;
+  }
+}
+p {
+  margin: 1em 0;
+}
+a {
+  color: #1a1a1a;
+}
+a:visited {
+  color: #1a1a1a;
+}
+img {
+  max-width: 100%;
+}
+h1, h2, h3, h4, h5, h6 {
+  margin-top: 1.4em;
+}
+h5, h6 {
+  font-size: 1em;
+  font-style: italic;
+}
+h6 {
+  font-weight: normal;
+}
+ol, ul {
+  padding-left: 1.7em;
+  margin-top: 1em;
+}
+li > ol, li > ul {
+  margin-top: 0;
+}
+blockquote {
+  margin: 1em 0 1em 1.7em;
+  padding-left: 1em;
+  border-left: 2px solid #e6e6e6;
+  color: #606060;
+}
+code {
+  font-family: Menlo, Monaco, 'Lucida Console', Consolas, monospace;
+  font-size: 85%;
+  margin: 0;
+}
+pre {
+  margin: 1em 0;
+  overflow: auto;
+}
+pre code {
+  padding: 0;
+  overflow: visible;
+  overflow-wrap: normal;
+}
+.sourceCode {
+ background-color: transparent;
+ overflow: visible;
+}
+hr {
+  background-color: #1a1a1a;
+  border: none;
+  height: 1px;
+  margin: 1em 0;
+}
+table {
+  margin: 1em 0;
+  border-collapse: collapse;
+  width: 100%;
+  overflow-x: auto;
+  display: block;
+  font-variant-numeric: lining-nums tabular-nums;
+}
+table caption {
+  margin-bottom: 0.75em;
+}
+tbody {
+  margin-top: 0.5em;
+  border-top: 1px solid #1a1a1a;
+  border-bottom: 1px solid #1a1a1a;
+}
+th {
+  border-top: 1px solid #1a1a1a;
+  padding: 0.25em 0.5em 0.25em 0.5em;
+}
+td {
+  padding: 0.125em 0.5em 0.25em 0.5em;
+}
+header {
+  margin-bottom: 4em;
+  text-align: center;
+}
+#TOC li {
+  list-style: none;
+}
+#TOC a:not(:hover) {
+  text-decoration: none;
+}
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+<style>
+body {
+    font-size: 20px;
+    font-family: FreeSerif, 'Times New Roman', Times, serif;
+    line-height: 1.38;
+    max-width: 38em;
+}
+h1 {
+    text-align: center;
+}
+h1.title {
+    margin-top: 0;
+    margin-bottom: 0.2em;
+    font-size: 2.2rem;
+}
+p.subtitle {
+    font-size: 1.35em;
+    font-style: italic;
+    margin-top: 0em;
+}
+p.author, p.date {
+    font-size: 0.9em;
+    font-style: italic;
+    margin: 0.2em auto;
+}
+header {
+    margin-bottom: 2.5em;
+    margin-top: 0;
+}
+h2#toc-title {
+    margin-bottom: 0.35em;
+    font-size: 1.2em;
+}
+nav#TOC ul {
+    line-height: 1.1;
+    margin-top: 0;
+}
+p:not(.title, .author, .date) {
+    text-align: justify;
+}
+blockquote p {
+    text-align: left;
+    font-style: italic;
+}
+table.linguistic-example tbody,
+table.linguistic-example tr,
+table.linguistic-example td {
+    border: 0px solid transparent !important;
+}
+/* #refs::before {
+    display: block;
+    content: "References";
+    font-weight: bold;
+    font-size: 1.7em;
+    font-style: italic;
+    margin-top: 1em;
+    margin-bottom: 0.5em;
+} */
+#references h1 {
+    font-family: 'Noto Serif CJK TC', serif;
+    font-style: italic;
+}
+.js-toc {
+    position: fixed;
+    right: 1%;
+    top: 1%;
+    margin-top: 2em;
+    margin-right: 1.5em;
+    width: 17.5%;
+    min-width: 200px;
+}
+</style>
+<!-- <link rel="stylesheet" href="../deps/custom.css"> -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+
+</head>
+
+<body>
+
+<h1 id="簡介">簡介</h1>
+<p><code>ntuthesis2</code> 是透過 <a href="https://github.com/jgm/pandoc">Pandoc</a> 建立的論文模板，讓使用者能透過 (Pandoc) <strong>Markdown</strong> 語法撰寫論文 (無須安裝與了解 LaTeX!!)。此專案的前身是 <a href="https://github.com/liao961120/ntuthesis">R 套件</a>，但由於 R + Bookdown + LaTeX 的設定相對龐雜，對非 R 的使用者而言有相當難度，因此改以純 Pandoc 實作 (這兩者在 Windows 與 Unix 上的安裝都相當容易)，希望讓更多人能夠使用。</p>
+<h2 id="輸出論文">輸出論文</h2>
+<h3 id="github">GitHub</h3>
+<p>如果有 GitHub 帳號，可以透過 GitHub Action 直接輸出論文 (Overleaf 專案連結與 HTML)，無需在電腦上安裝任何東西。只要 fork 此 Repo，每次 push commit 至 GitHub 後，即會生成靜態網頁 (論文 HTML 輸出) 以及 Overleaf 專案。</p>
+<ul>
+<li>靜態網頁的網誌：<code>https://{user}.github.io/{repo}/</code>，例如 <a href="https://liao961120.github.io/ntuthesis2/" class="uri">https://liao961120.github.io/ntuthesis2/</a>。</li>
+<li>Overleaf 專案的網址為： <code>https://www.overleaf.com/docs?snip_uri=https://{user}.github.io/{repo}/overleaf.zip&amp;engine=xelatex&amp;main_document=main.tex</code>，例如 <a href="https://www.overleaf.com/docs?snip_uri=https://liao961120.github.io/ntuthesis2/overleaf.zip&amp;engine=xelatex&amp;main_document=main.tex" class="uri">https://www.overleaf.com/docs?snip_uri=https://liao961120.github.io/ntuthesis2/overleaf.zip&amp;engine=xelatex&amp;main_document=main.tex</a>。點擊進入這網址後，Overleaf 就會自動匯入專案並輸出 PDF。</li>
+</ul>
+<h3 id="自己電腦上">自己電腦上</h3>
+<p>如果想在本機預覽 HTML 輸出結果，需安裝 <a href="https://github.com/jgm/pandoc/releases">Pandoc</a> 2.14 (或更新) 以及 <a href="https://github.com/lierdakil/pandoc-crossref/releases">pandoc-crossref</a>。安裝之後，至 Terminal 執行 (Windows 系統因為沒有 Shell，建議可以安裝 <a href="https://gitforwindows.org">Git Bash</a>):</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> build-html.sh  <span class="co"># 輸出 docs/index.html</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">bash</span> build-tex.sh   <span class="co"># 輸出 docs/overleaf.zip，可上傳至 Overleaf 或是自己輸出成 PDF</span></span></code></pre></div>
+<h3 id="透過-vscode-預覽-pandoc">透過 VSCode 預覽 Pandoc</h3>
+<p>VSCode 的擴充討件 <a href="https://marketplace.visualstudio.com/items?itemName=shd101wyy.markdown-preview-enhanced">Markdown Preview Enhanced</a> 支援使用 Pandoc 作為 Markdown 的 Parser，對於撰寫論文時很有幫助 (即時預覽)。另一個套件 <a href="https://marketplace.visualstudio.com/items?itemName=notZaki.pandocciter">Pandoc Citer</a> 則可協助於 markdown 裡插入引用文獻。建議可以將下方的設定加入 VSCode 的 <code>settings.json</code>:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode json"><code class="sourceCode json"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;markdown-preview-enhanced.usePandocParser&quot;:</span> <span class="er">true,</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="er">&quot;markdown-preview-enhanced.pandocArguments&quot;:</span> <span class="ot">[</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--filter=pandoc-crossref&quot;</span><span class="ot">,</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--lua-filter=deps/pandoc-ling.lua&quot;</span><span class="ot">,</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--citeproc&quot;</span><span class="ot">,</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--mathjax&quot;</span><span class="ot">,</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--number-sections&quot;</span><span class="ot">,</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--include-in-header=deps/style.html&quot;</span><span class="ot">,</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        <span class="st">&quot;--bibliography=references.bib&quot;</span><span class="ot">,</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">]</span><span class="er">,</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;PandocCiter.DefaultBib&quot;:</span> <span class="er">&quot;references.bib&quot;,</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="er">&quot;PandocCiter.UseDefaultBib&quot;:</span> <span class="er">true,</span></span></code></pre></div>
+<h2 id="使用">使用</h2>
+<p>由於 LaTeX (<a href="https://www.tug.org/texlive">TeX Live</a> 或 <a href="https://miktex.org">MikTeX</a> 的安裝十分令人頭痛，而且即使安裝完成，後續生成 PDF 的過程仍會常常出錯。為了儘量避開這些問題，<code>ntuthesis2</code> 在設計上結合 <a href="https://www.overleaf.com">Overleaf</a>，讓使用者能將輸出的 <code>.tex</code> 檔透過 (免費) 網路服務輸出成 PDF 檔。當然，若使用者個人電腦上已有 LaTeX，也可直接在電腦上輸出 PDF。此外，<code>ntuthesis2</code> 也提供一個相當簡約的 <code>.html</code> 輸出格式，目的是方便在撰寫時預覽論文 (因為 LaTeX 的輸出相當耗時)。</p>
+<h3 id="論文撰寫">論文撰寫</h3>
+<p>下方為 Repo 的結構，基本上使用者僅需要更動兩個地方—<code>setup.md</code> 以及 <code>chapters/</code> 裡的檔案。其它部份若不清楚是什麼可以不用理會，也不要去刪除它們。</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> setup.md               <span class="co"># 論文參數設定 (標題、作者、指導教授、摘要、謝辭...)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> build-html.sh          <span class="co"># 輸出 HTML</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> build-tex.sh           <span class="co"># 輸出 overleaf.zip (可上傳至 Overleaf compile)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs/                  <span class="co"># 論文輸出</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> chapters/              <span class="co"># 論文內容</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 01-intro.md           <span class="co"># 第一章 (命名規則：{##}-{title}.md)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 02-chapter2.md        <span class="co"># 第二章 (命名規則：{##}-{title}.md)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-A.md         <span class="co"># 附錄 A (命名規則：appendix-{編碼}.md)</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-B.md         <span class="co"># 附錄 B (命名規則：appendix-{編碼}.md)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── denotations.md        <span class="co"># 符號列表 (若無需用到，請將檔案裡的內容刪除，但勿刪除此檔案)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── references.bib        <span class="co"># 引用書目</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> └── figures/              <span class="co"># 圖片存放處 (勿刪除此資料夾)</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> deps/                  <span class="co"># 論文模板、程式輸出相依檔案</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a> <span class="ex">  </span> ├── ...</span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> citation-style.csl <span class="co"># 引用格式 (至 zotero.org/styles 下載)</span></span></code></pre></div>
+<h4 id="文內超連結">文內超連結</h4>
+<div id="tbl:cross-ref2">
+<table>
+<caption>Table 1. Cross-reference 語法.</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th>定義</th>
+<th style="text-align: center;">引用</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">段落</td>
+<td><code>Section Two {#sec:2}</code></td>
+<td style="text-align: center;"><code>@sec:id</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">圖片</td>
+<td><code>![Caption.](image.png){#fig:id}</code></td>
+<td style="text-align: center;"><code>@fig:id</code></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">公式</td>
+<td><code>$$ y = mx + b $$ {#eq:id}</code></td>
+<td style="text-align: center;"><code>@eq:id</code></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">表格</td>
+<td><code>Table: Caption. {#tbl:id}</code></td>
+<td style="text-align: center;"><code>@tbl:id</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>詳見 <a href="https://lierdakil.github.io/pandoc-crossref/">pandoc-crossref 說明</a>。</p>
+<h4 id="文獻引用">文獻引用</h4>
+<p>文獻引用是透過 <code>.bib</code> 檔裡的書目資料以及 <a href="https://pandoc.org/MANUAL.html#citation-syntax">Pandoc’s Citation syntax</a> 達成。<code>.bib</code> 檔的產生方式可以由 Endnote, Zotero, JabRef 等書目管理軟體匯出。匯出後，將檔名命名為 <code>ref.bib</code> 取代根目錄中原本的檔案。</p>
+<p>下方是 <code>.bib</code> 內的一篇引用資料 (一個 <code>.bib</code> 可以有很多篇)：</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bib"><code class="sourceCode bibtex"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">leung2008</span>,</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Multicultural Experience Enhances Creativity: {{The}} When and How.},</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {63},</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">issn</span> = {1935-990X(Electronic),0003-066X(Print)},</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1037/0003-066X.63.3.169},</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {3},</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journaltitle</span> = {American Psychologist},</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">date</span> = {2008},</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {169-181},</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">keywords</span> = {*Cognition,*Creativity,</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>    *Culture (Anthropological),</span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    *Experiences (Events),Multiculturalism},</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Leung, Angela Ka-yee and </span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>    Maddux, William W. and </span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a>    Galinsky, Adam D. and Chiu, Chi-yue}</span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>其中第一行的 <code>leung2008</code> 即為 <strong>citation key</strong>。Pandoc 透過 <code>@citekey</code> (e.g., <code>@leung2008</code>) 在 <code>.md</code> 檔中插入 citation。匯出論文時，Pandoc 會依據 <code>cite-style.csl</code> 的格式自動產生引用文獻。下方為一些文獻引用語法的範例，詳見 <a href="https://pandoc.org/MANUAL.html#citation-syntax">Pandoc’s Citation syntax</a>。</p>
+<div id="tbl:citation2">
+<table>
+<caption>Table 2. 文獻引用語法.</caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 46%" />
+<col style="width: 43%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;"></th>
+<th>內文</th>
+<th>輸出 (根據 <code>.csl</code> 改變)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">單篇</td>
+<td><code>[@stanford2008]</code></td>
+<td><span class="citation" data-cites="stanford2008">(Stanford, 2008)</span></td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">多篇</td>
+<td><code>[@stanford2008; @kassin2017]</code></td>
+<td><span class="citation" data-cites="stanford2008 kassin2017">(Kassin et al., 2017; Stanford, 2008)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">文內引用</td>
+<td><code>@stanford2008 says ...</code></td>
+<td><span class="citation" data-cites="stanford2008">Stanford (2008)</span> says</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">隱藏作者</td>
+<td><code>Stanford says blah [-@stanford2008]</code></td>
+<td>Stanford says blah <span class="citation" data-cites="stanford2008">(2008)</span></td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">其它註解</td>
+<td><code>see @kassin2017, pp. 33-35</code></td>
+<td>see <span class="citation" data-cites="kassin2017">Kassin et al. (2017)</span>, pp. 33-35</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="尋求協助">尋求協助</h2>
+<p>若有套件使用上的問題，可在 <a href="https://github.com/liao961120/ntuthesis2/issues">GitHub</a> 回報。若沒有 GitHub 帳號，可透過 Email<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a> 聯絡 <a href="https://yongfu.name">Yongfu Liao</a>。</p>
+<h2 id="特別感謝">特別感謝</h2>
+<p>此論文 PDF 輸出根據 <a href="https://github.com/Hsins/NTU-Thesis-LaTeX-Template"><code>Hsins/NTU-Thesis-LaTeX-Template</code></a> 修改而成。</p>
+<div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography">
+<div id="ref-kassin2017" class="csl-entry" role="doc-biblioentry">
+Kassin, S., Fein, S., &amp; Markus, H. R. (2017). <em>Social <span>Psychology</span></em> (10th ed.). <span>Cengage Learning</span>.
+</div>
+<div id="ref-stanford2008" class="csl-entry" role="doc-biblioentry">
+Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives on parent/peer Influence1. <em>Journal of Sociolinguistics</em>, <em>12</em>(5), 567–596. <a href="https://doi.org/10.1111/j.1467-9841.2008.00383.x">https://doi.org/10.1111/j.1467-9841.2008.00383.x</a>
+</div>
+</div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>liao961120@gmail.com<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+<div id="tocChap">
+    {{ files_str }}
+    <nav>
+        <ul>
+            <li v-for="f, i in files">
+                <a :href="f" :class="{ active: currFile == f }">{{ names[i] }}</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- development version, includes helpful console warnings -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+<!-- production version, optimized for size and speed -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+
+<script>
+    var app = new Vue({
+        el: '#tocChap',
+        data: {
+            files: [],
+            names: [],
+            files_str: "",
+        },
+        computed: {
+            currFile() {
+                let ch = window.location.href.split("/");
+                return ch[ch.length - 1]
+            }
+        },
+        created: function () {
+            this.files = get_files().split("__");
+            this.names = this.files.map(fp => {
+                fp = fp.replace(".html", "");
+                if (fp == "index") return "Main";
+                if (fp.startsWith('appendix')) {
+                    fp = fp.split('-');
+                    let ap = (fp[1] == null) ? "" : fp[1];
+                    return `Appendix ${ap}`
+                }
+                if (fp.match(/^\d+-/)) {
+                    fp = fp.split("-");
+                    fp = parseInt(fp[0], 10);
+                    return `Chapter ${fp}`
+                }
+                return fp
+            })
+
+        }
+    })
+
+    function get_files(){
+       return 'index.html__01-intro.html__02-chapter2.html__appendix-A.html__appendix-B.html__';
+    };
+</script>
+
+<style>
+    #tocChap ul {
+        list-style-type: none;
+        padding-left: 1.2em;
+    }
+    #tocChap ul li {
+        line-height: 1.5em;
+    }
+    #tocChap a:hover {
+        text-decoration: underline;
+    }
+    #tocChap a {
+        text-decoration: none;
+    }
+    #tocChap a.active {
+        pointer-events: none;
+        color: rgb(54, 179, 54);
+        text-decoration: none;
+    }
+    #tocChap {
+        position: fixed;
+        top: 1em;
+        left: 0;
+        margin: 0;
+    }
+</style>
+<nav class="js-toc toc toc-right relative z-1 transition--300 absolute pa4 pt5 is-position-fixed"></nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+
+<script>
+    // Insert title for references
+    let ref = document.querySelector("#refs");
+    if (ref != null) {
+        let title = document.createElement("h1");
+        title.innerText = "References";
+        title.className = "unnumbered";
+        title.id = "chapter-references";
+        ref.parentElement.insertBefore(title, ref);
+    }
+
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: 'body',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+        ignoreSelector: 'h1.title',
+        collapseDepth: '6',
+        // // For headings inside relative or absolute positioned containers within content.
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<style>
+    @media only screen and (max-width: 1000px) {
+        .js-toc,
+        #tocChap {
+            display: none !important;
+        }
+    }
+    @media print {
+        .js-toc,
+        #tocChap {
+            display: none !important;
+        }
+    }
+</style>
+
+  <script>
+    // Get chapter name
+    let ch = window.location.href.split("/");
+    ch = ch[ch.length - 1].split('-')
+    ap = "A"
+    if (ch[1] != null) ap = ch[1]
+    ap = ap.replace(/\.html$/, "")  // Note the anchor escape for Pandoc
+
+    // Initialize counter
+    var style1, style2, style3;
+    style1 = document.querySelector('h1').style;
+    if (ch[0] == "appendix")
+      style1.setProperty('--h1before', '"' + ap + '"' + ' " "');
+    else
+      style1.setProperty('--h1before', 'counter(chapter) " "');
+
+    document.querySelectorAll('h2').forEach(e => {
+      if (ch[0] == "appendix")
+        e.style.setProperty('--h2before', '"' + ap + '"' + '"."counter(section) " "');
+      else
+        e.style.setProperty('--h2before', 'counter(chapter)"."counter(section) " "');
+    })
+    document.querySelectorAll('h3').forEach(e => {
+      if (ch[0] == "appendix")
+        e.style.setProperty('--h3before', '"' + ap + '"' + '"."counter(section)"."counter(subsection) " "');
+      else
+        e.style.setProperty('--h3before', 'counter(chapter)"."counter(section)"."counter(subsection) " "');
+    })
+
+    // Set counter for numeric chapters
+    ch = parseInt(ch[0], 10);
+    if (!isNaN(ch)) {
+      document.querySelector("title").innerText = 'Chap.' + ch + ' ' + document.querySelector("h1").innerText;
+      document.querySelector("body").style.counterReset = "chapter " + (ch - 1);
+    } else {
+      document.querySelector("title").innerText = document.querySelector("h1").innerText;
+      document.querySelector("body").style.counterReset = "chapter";
+    }
+  </script>
+
+  <style>
+    body {
+      counter-reset: chapter;
+    }
+
+    h1 {
+      counter-reset: section;
+    }
+
+    h1:before,
+    h2:before,
+    h3::before {
+      display: inline-block;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 0.75em;
+      margin-right: 0.7em;
+      text-decoration: underline 3px;
+    }
+
+    h1:before {
+      counter-increment: chapter;
+      content: var(--h1before);
+      font-weight: bold;
+    }
+
+    h2 {
+      counter-reset: subsection;
+    }
+    h2:before {
+      counter-increment: section;
+      content: var(--h2before);
+    }
+    h3:before {
+      counter-increment: subsection;
+      content: var(--h3before);
+    }
+    .unnumbered::before {
+      display: none;
+    }
+  </style>
+
+
+</body>
+
+</html>
