@@ -14,7 +14,7 @@
 
 如果你有 GitHub 帳號，可以透過 GitHub Action 直接輸出論文 (Overleaf 專案連結與 HTML)，無需在電腦上安裝任何東西。只要 fork 此 Repo，每次 push commit 至 GitHub 後，即會以靜態網頁以及 Overleaf 專案的形式輸出論文。
 
-- 靜態網頁的網址：`https://{user}.github.io/{repo}/`，例如 <https://liao961120.github.io/thesis>。
+- 靜態網頁的網址：`https://{user}.github.io/{repo}`，例如 <https://liao961120.github.io/thesis>。
 - Overleaf 專案的網址為： `https://www.overleaf.com/docs?engine=xelatex&main_document=main.tex&snip_uri=https://{user}.github.io/{repo}/overleaf.zip`，例如 <https://www.overleaf.com/docs?engine=xelatex&main_document=main.tex&snip_uri=https://liao961120.github.io/thesis/overleaf.zip>。點擊進入這網址後，Overleaf 就會自動匯入專案並輸出 PDF。
 
 
