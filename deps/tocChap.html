@@ -1,0 +1,83 @@
+<div id="tocChap">
+    {{ files_str }}
+    <nav>
+        <ul>
+            <li v-for="f, i in files">
+                <a :href="f" :class="{ active: currFile == f }">{{ names[i] }}</a>
+            </li>
+        </ul>
+    </nav>
+</div>
+
+<!-- development version, includes helpful console warnings -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
+<!-- production version, optimized for size and speed -->
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
+
+<script>
+    var app = new Vue({
+        el: '#tocChap',
+        data: {
+            files: [],
+            names: [],
+            files_str: "",
+        },
+        computed: {
+            currFile() {
+                let ch = window.location.href.split("/");
+                return ch[ch.length - 1]
+            }
+        },
+        created: function () {
+            this.files = get_files().split("__");
+            this.names = this.files.map(fp => {
+                fp = fp.replace(".html", "");
+                if (fp == "index") return "Main";
+                if (fp.startsWith('appendix')) {
+                    fp = fp.split('-');
+                    let ap = (fp[1] == null) ? "" : fp[1];
+                    return `Appendix ${ap}`
+                }
+                if (fp.match(/^\d+-/)) {
+                    fp = fp.split("-");
+                    fp = parseInt(fp[0], 10);
+                    return `Chapter ${fp}`
+                }
+                return fp
+            })
+
+        }
+    })
+
+    function get_files(){
+       return 'ANCHOR.TOCCHAP';
+    };
+</script>
+
+<style>
+    #tocChap ul {
+        list-style-type: none;
+        padding-left: 1.2em;
+    }
+    #tocChap ul li {
+        line-height: 1.5em;
+    }
+    #tocChap a:hover {
+        text-decoration: underline;
+    }
+    #tocChap a {
+        text-decoration: none;
+    }
+    #tocChap a.active {
+        pointer-events: none;
+        color: rgb(54, 179, 54);
+        text-decoration: none;
+    }
+    #tocChap {
+        position: fixed;
+        top: 1em;
+        left: 0;
+        margin: 0;
+    }
+</style>

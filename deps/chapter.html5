@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="$lang$" xml:lang="$lang$" $if(dir)$ dir="$dir$" $endif$>
+
+<head>
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+$for(author-meta)$
+<meta name="author" content="$author-meta$" />
+$endfor$
+$if(date-meta)$
+<meta name="dcterms.date" content="$date-meta$" />
+$endif$
+$if(keywords)$
+<meta name="keywords" content="$for(keywords)$$keywords$$sep$, $endfor$" />
+$endif$
+$if(description-meta)$
+<meta name="description" content="$description-meta$" />
+$endif$
+<title>PlaceHolder</title>
+<style>
+$styles.html()$
+</style>
+$for(css)$
+<link rel="stylesheet" href="$css$" />
+$endfor$
+$if(math)$
+$math$
+$endif$
+$for(header-includes)$
+$header-includes$
+$endfor$
+
+</head>
+
+<body>
+$for(include-before)$
+$include-before$
+$endfor$
+
+$body$
+
+$for(include-after)$
+$include-after$
+$endfor$
+
+  <script>
+    // Get chapter name
+    let ch = window.location.href.split("/");
+    ch = ch[ch.length - 1].split('-')
+    ap = "A"
+    if (ch[1] != null) ap = ch[1]
+    ap = ap.replace(/\.html$$/, "")  // Note the anchor escape for Pandoc
+
+    // Initialize counter
+    var style1, style2, style3;
+    style1 = document.querySelector('h1').style;
+    if (ch[0] == "appendix")
+      style1.setProperty('--h1before', '"' + ap + '"' + ' " "');
+    else
+      style1.setProperty('--h1before', 'counter(chapter) " "');
+
+    document.querySelectorAll('h2').forEach(e => {
+      if (ch[0] == "appendix")
+        e.style.setProperty('--h2before', '"' + ap + '"' + '"."counter(section) " "');
+      else
+        e.style.setProperty('--h2before', 'counter(chapter)"."counter(section) " "');
+    })
+    document.querySelectorAll('h3').forEach(e => {
+      if (ch[0] == "appendix")
+        e.style.setProperty('--h3before', '"' + ap + '"' + '"."counter(section)"."counter(subsection) " "');
+      else
+        e.style.setProperty('--h3before', 'counter(chapter)"."counter(section)"."counter(subsection) " "');
+    })
+
+    // Set counter for numeric chapters
+    ch = parseInt(ch[0], 10);
+    if (!isNaN(ch)) {
+      document.querySelector("title").innerText = 'Chap.' + ch + ' ' + document.querySelector("h1").innerText;
+      document.querySelector("body").style.counterReset = "chapter " + (ch - 1);
+    } else {
+      document.querySelector("title").innerText = document.querySelector("h1").innerText;
+      document.querySelector("body").style.counterReset = "chapter";
+    }
+  </script>
+
+  <style>
+    body {
+      counter-reset: chapter;
+    }
+
+    h1 {
+      counter-reset: section;
+    }
+
+    h1:before,
+    h2:before,
+    h3::before {
+      display: inline-block;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-size: 0.75em;
+      margin-right: 0.7em;
+      text-decoration: underline 3px;
+    }
+
+    h1:before {
+      counter-increment: chapter;
+      content: var(--h1before);
+      font-weight: bold;
+    }
+
+    h2 {
+      counter-reset: subsection;
+    }
+    h2:before {
+      counter-increment: section;
+      content: var(--h2before);
+    }
+    h3:before {
+      counter-increment: subsection;
+      content: var(--h3before);
+    }
+    .unnumbered::before {
+      display: none;
+    }
+  </style>
+
+
+</body>
+
+</html>

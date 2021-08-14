@@ -1,0 +1,43 @@
+<nav class="js-toc toc toc-right relative z-1 transition--300 absolute pa4 pt5 is-position-fixed"></nav>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.min.js"></script>
+
+<script>
+    // Insert title for references
+    let ref = document.querySelector("#refs");
+    if (ref != null) {
+        let title = document.createElement("h1");
+        title.innerText = "References";
+        title.className = "unnumbered";
+        title.id = "chapter-references";
+        ref.parentElement.insertBefore(title, ref);
+    }
+
+    tocbot.init({
+        // Where to render the table of contents.
+        tocSelector: '.js-toc',
+        // Where to grab the headings to build the table of contents.
+        contentSelector: 'body',
+        // Which headings to grab inside of the contentSelector element.
+        headingSelector: 'h1, h2, h3',
+        ignoreSelector: 'h1.title',
+        collapseDepth: '6',
+        // // For headings inside relative or absolute positioned containers within content.
+        hasInnerContainers: true,
+    });
+</script>
+
+
+<style>
+    @media only screen and (max-width: 1000px) {
+        .js-toc,
+        #tocChap {
+            display: none !important;
+        }
+    }
+    @media print {
+        .js-toc,
+        #tocChap {
+            display: none !important;
+        }
+    }
+</style>

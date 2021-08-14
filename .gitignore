@@ -1,0 +1,13 @@
+outfig
+overleaf
+.vscode
+__pycache__
+pandoc
+pandoc-crossref
+pandoc.tar.xz
+*.log
+*.json
+*.fdb_latexmk
+*.aux
+*.fls
+thesisform.pdf.pdf

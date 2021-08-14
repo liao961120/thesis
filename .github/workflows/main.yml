@@ -1,0 +1,34 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: Build GitHub Pages
+
+on: [push]
+
+jobs:
+  build:
+    if: "!contains(github.event.commits[0].message, '[skip ci]')"
+    runs-on: ubuntu-latest
+    # strategy:
+    #   matrix:
+    #     python-version: ['3.8']
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Output Links
+      run: |
+        arrREPO=(${REPO_NAME//// })
+        echo "Overleaf Import Link: https://www.overleaf.com/docs?snip_uri=https://${arrREPO[0]}.github.io/${arrREPO[1]}/overleaf.zip&engine=xelatex&main_document=main.tex"
+        echo "HTML Link: https://${arrREPO[0]}.github.io/${arrREPO[1]}/"
+      env:
+        REPO_NAME: ${{ github.repository }}
+    - name: Build files
+      run: |
+        bash build-tex.sh
+        bash build-html.sh
+    - name: Deploy
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ./docs
+        enable_jekyll: false
