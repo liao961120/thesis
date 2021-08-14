@@ -318,56 +318,79 @@ table.linguistic-example td {
 <body>
 
 <h1 id="pandocs-markdown-syntax">Pandoc’s Markdown Syntax</h1>
-<h2 id="citation-and-footnotes">Citation and Footnotes</h2>
-<p>This is a citation <span class="citation" data-cites="knauff2014">(Knauff &amp; Nejasmic, 2014)</span>, and this is a footnote<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>. See Table <a href="#tbl:citation">1</a> for citation syntax.</p>
+<h2 id="文獻引用">文獻引用</h2>
+<p>文獻引用是透過 <code>.bib</code> 檔裡的書目資料以及 <a href="https://pandoc.org/MANUAL.html#citation-syntax">Pandoc’s Citation syntax</a> 達成。<code>.bib</code> 檔的產生方式可以由 Endnote, Zotero, JabRef 等書目管理軟體匯出。匯出後，將檔名命名為 <code>ref.bib</code> 取代根目錄中原本的檔案。</p>
+<p>下方是 <code>.bib</code> 內的一篇引用資料 (一個 <code>.bib</code> 可以有很多篇)：</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode bib"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">leung2008</span>,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Multicultural Experience Enhances Creativity: {{The}} When and How.},</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {63},</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">issn</span> = {1935-990X(Electronic),0003-066X(Print)},</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1037/0003-066X.63.3.169},</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {3},</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journaltitle</span> = {American Psychologist},</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">date</span> = {2008},</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {169-181},</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">keywords</span> = {*Cognition,*Creativity,</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    *Culture (Anthropological),</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    *Experiences (Events),Multiculturalism},</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Leung, Angela Ka-yee and </span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    Maddux, William W. and </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    Galinsky, Adam D. and Chiu, Chi-yue}</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>其中第一行的 <code>leung2008</code> 即為 <strong>citation key</strong>。Pandoc 透過 <code>@citekey</code> (e.g., <code>@leung2008</code>) 在 <code>.md</code> 檔中插入 citation。匯出論文時，Pandoc 會依據 <code>cite-style.csl</code> 的格式自動產生引用文獻。下方為一些文獻引用語法的範例，詳見 <a href="https://pandoc.org/MANUAL.html#citation-syntax">Pandoc’s Citation syntax</a>。</p>
 <div id="tbl:citation">
 <table>
-<caption>Table 1. Citation syntax.</caption>
+<caption>Table 1. 文獻引用語法.</caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 46%" />
+<col style="width: 43%" />
+</colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: left;"></th>
-<th style="text-align: left;">Source</th>
-<th style="text-align: left;">Output (<code>cite-style.csl</code>)</th>
+<th style="text-align: center;"></th>
+<th>內文</th>
+<th>輸出 (根據 <code>.csl</code> 改變)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: left;">Single</td>
-<td style="text-align: left;"><code>[@knauff2014]</code></td>
-<td style="text-align: left;"><span class="citation" data-cites="knauff2014">(Knauff &amp; Nejasmic, 2014)</span></td>
+<td style="text-align: center;">單篇</td>
+<td><code>[@stanford2008]</code></td>
+<td><span class="citation" data-cites="stanford2008">(Stanford, 2008)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Multiple</td>
-<td style="text-align: left;"><code>[@knauff2014; @mcelreath2020]</code></td>
-<td style="text-align: left;"><span class="citation" data-cites="knauff2014 mcelreath2020">(Knauff &amp; Nejasmic, 2014; McElreath, 2020)</span></td>
+<td style="text-align: center;">多篇</td>
+<td><code>[@stanford2008; @kassin2017]</code></td>
+<td><span class="citation" data-cites="stanford2008 kassin2017">(Kassin et al., 2017; Stanford, 2008)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Without parenthesis</td>
-<td style="text-align: left;"><code>@mcelreath2020 says ...</code></td>
-<td style="text-align: left;"><span class="citation" data-cites="mcelreath2020">McElreath (2020)</span> says …</td>
+<td style="text-align: center;">文內引用</td>
+<td><code>@stanford2008 says ...</code></td>
+<td><span class="citation" data-cites="stanford2008">Stanford (2008)</span> says</td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Suppress author</td>
-<td style="text-align: left;"><code>He ... [-@knauff2014]</code></td>
-<td style="text-align: left;">He … <span class="citation" data-cites="knauff2014">(2014)</span></td>
+<td style="text-align: center;">隱藏作者</td>
+<td><code>Stanford says blah [-@stanford2008]</code></td>
+<td>Stanford says blah <span class="citation" data-cites="stanford2008">(2008)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Add notes</td>
-<td style="text-align: left;"><code>see @mcelreath2020, pp. 33</code></td>
-<td style="text-align: left;">see <span class="citation" data-cites="mcelreath2020">McElreath (2020)</span>, pp. 33</td>
+<td style="text-align: center;">其它註解</td>
+<td><code>see @kassin2017, pp. 33-35</code></td>
+<td>see <span class="citation" data-cites="kassin2017">Kassin et al. (2017)</span>, pp. 33-35</td>
 </tr>
 </tbody>
 </table>
 </div>
-<h2 id="code-block">Code Block</h2>
+<h2 id="程式碼">程式碼</h2>
 <div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> <span class="st">&quot;Hello World!&quot;</span>:</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c)</span></code></pre></div>
-<h2 id="sec:cross-ref">Cross Referencing</h2>
+<h2 id="sec:cross-ref">文內超連結 (cross-referencing)</h2>
 <h3 id="image">Image</h3>
 <figure>
-<img src="figures/GIL.png" id="fig:figure" style="width:50.0%" alt="Figure 1. Caption" /><figcaption aria-hidden="true">Figure 1. Caption</figcaption>
+<img src="figures/overleaf.png" id="fig:figure" style="width:50.0%" alt="Figure 1. Write Figure caption here." /><figcaption aria-hidden="true">Figure 1. Write Figure caption here.</figcaption>
 </figure>
-<p>Reference figure with Figure <a href="#fig:figure">1</a>.</p>
+<p>Reference figure with Figure <a href="#fig:figure">1</a>. Define prefixes in <code>setup.md</code>.</p>
 <h3 id="table">Table</h3>
 <div id="tbl:cross-ref">
 <table>
@@ -500,19 +523,13 @@ c &amp;= 1
 </div>
 <p>See example <a href="#gloss-a">(3)</a>.</p>
 <div id="refs" class="references csl-bib-body hanging-indent" data-line-spacing="2" role="doc-bibliography">
-<div id="ref-knauff2014" class="csl-entry" role="doc-biblioentry">
-Knauff, M., &amp; Nejasmic, J. (2014). An <span>Efficiency</span> <span>Comparison</span> of <span>Document</span> <span>Preparation</span> <span>Systems</span> <span>Used</span> in <span>Academic</span> <span>Research</span> and <span>Development</span>. <em>PLOS ONE</em>, <em>9</em>(12), 1–12. <a href="https://doi.org/10.1371/journal.pone.0115069">https://doi.org/10.1371/journal.pone.0115069</a>
+<div id="ref-kassin2017" class="csl-entry" role="doc-biblioentry">
+Kassin, S., Fein, S., &amp; Markus, H. R. (2017). <em>Social <span>Psychology</span></em> (10th ed.). <span>Cengage Learning</span>.
 </div>
-<div id="ref-mcelreath2020" class="csl-entry" role="doc-biblioentry">
-McElreath, R. (2020). <em>Statistical rethinking: <span>A</span> <span>Bayesian</span> course with examples in <span>R</span> and <span>Stan</span></em> (2nd ed.). CRC press.
+<div id="ref-stanford2008" class="csl-entry" role="doc-biblioentry">
+Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives on parent/peer Influence1. <em>Journal of Sociolinguistics</em>, <em>12</em>(5), 567–596. <a href="https://doi.org/10.1111/j.1467-9841.2008.00383.x">https://doi.org/10.1111/j.1467-9841.2008.00383.x</a>
 </div>
 </div>
-<section class="footnotes" role="doc-endnotes">
-<hr />
-<ol>
-<li id="fn1" role="doc-endnote"><p>Define your footnote here<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
-</ol>
-</section>
 
 <div id="tocChap">
     {{ files_str }}
