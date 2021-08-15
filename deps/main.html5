@@ -55,7 +55,7 @@
     $endif$
 
     $if(abstract)$
-    <h2 id="abstract">摘要</h2>
+    <h1 id="abstract">摘要</h1>
     $abstract$
     $if(keywords)$
     <div class="keywords">
@@ -67,7 +67,7 @@
     $endif$
 
     $if(abstract-en)$
-    <h2 id="abstract-en">Abstract</h2>
+    <h1 id="abstract-en">Abstract</h1>
     $abstract-en$
     $if(keywords-en)$
     <div class="keywords">
@@ -82,9 +82,9 @@
 
     $if(acknowledgement)$
     $if(acknowledgement-in-en)$
-    <h2 id="acknowledgement">Acknowledgement</h2>
+    <h1 id="acknowledgement">Acknowledgement</h1>
     $else$
-    <h2 id="acknowledgement">謝辭</h2>
+    <h1 id="acknowledgement">謝辭</h1>
     $endif$
     $acknowledgement$
     $endif$
@@ -95,7 +95,7 @@
     $endfor$
 
     <style>
-        h2, .Denotation::before {
+        h1, .Denotation::before {
             text-align: center;
             font-size: 1.7em;
             font-weight: bold;

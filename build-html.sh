@@ -69,6 +69,7 @@ done
 [[ -d docs ]] || mkdir docs
 mv chapters/*.html docs/
 cp -r chapters/figures docs/
+touch docs/custom.css
 
 # Clean up
 rm tocChapTmp.html chapter_index.txt

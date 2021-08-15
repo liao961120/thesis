@@ -1,12 +1,26 @@
 <div id="tocChap">
-    {{ files_str }}
     <nav>
         <ul>
             <li v-for="f, i in files">
-                <a :href="f" :class="{ active: currFile == f }">{{ names[i] }}</a>
+                <a :href="f" :class="{ active: currFile == f }">
+                    {{ names[i] }}
+                </a>
             </li>
         </ul>
     </nav>
+
+
+    <div class="prev-next-nav">
+        <a v-if="prevIndex != null" :href="files[prevIndex]">
+            <button>« {{names[prevIndex]}}</button>
+        </a>
+        <button v-else disabled>« {{names[currIndex]}}</button>
+        <a v-if="nextIndex != null" :href="files[nextIndex]">
+            <button>{{names[nextIndex]}} »</button>
+        </a>
+        <button v-else disabled>{{names[currIndex]}} »</button>
+    </div>
+
 </div>
 
 <!-- development version, includes helpful console warnings -->
@@ -27,10 +41,22 @@
             currFile() {
                 let ch = window.location.href.split("/");
                 return ch[ch.length - 1]
+            },
+            currIndex() {
+                return this.files.indexOf(this.currFile)
+            },
+            prevIndex() {
+                if (this.currIndex == 0) return null
+                return (this.currIndex - 1)
+            },
+            nextIndex() {
+                if (this.currIndex == this.files.length - 1) return null
+                return (this.currIndex + 1)
             }
         },
         created: function () {
             this.files = get_files().split("__");
+            this.files.pop();
             this.names = this.files.map(fp => {
                 fp = fp.replace(".html", "");
                 if (fp == "index") return "Main";
@@ -50,8 +76,8 @@
         }
     })
 
-    function get_files(){
-       return 'ANCHOR.TOCCHAP';
+    function get_files() {
+        return 'ANCHOR.TOCCHAP';
     };
 </script>
 
@@ -63,21 +89,47 @@
     #tocChap ul li {
         line-height: 1.5em;
     }
-    #tocChap a:hover {
+    #tocChap ul a:hover {
         text-decoration: underline;
     }
-    #tocChap a {
+    #tocChap ul a {
         text-decoration: none;
     }
-    #tocChap a.active {
+    #tocChap ul a.active {
         pointer-events: none;
         color: rgb(54, 179, 54);
         text-decoration: none;
     }
-    #tocChap {
+    #tocChap ul {
         position: fixed;
         top: 1em;
         left: 0;
         margin: 0;
+    }
+    #tocChap .prev-next-nav {
+        position: relative;
+        display: block;
+        width: 50%;
+        margin: 2em auto 0;
+        padding: 0 auto;
+        text-align: center
+    }
+    #tocChap .prev-next-nav button {
+        height: 2.3em;
+        border: none;
+        background-color: greenyellow;
+        border-radius: 0.4em;
+    }
+    #tocChap .prev-next-nav button:hover {
+        background-color: rgb(95, 255, 47);
+        cursor: pointer;
+    }
+    #tocChap button:disabled:hover,
+    #tocChap button:disabled {
+        background-color: rgb(221, 221, 221);
+        color: rgb(139, 139, 139);
+    }
+    #tocChap button a:hover {
+        text-decoration: none;
     }
 </style>
