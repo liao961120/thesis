@@ -316,25 +316,28 @@ table.linguistic-example td {
 <body>
 
 <h1 id="pandocs-markdown-syntax">Pandoc’s Markdown Syntax</h1>
+<h2 id="程式碼">程式碼</h2>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> <span class="st">&quot;Hello World!&quot;</span>:</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c)</span></code></pre></div>
 <h2 id="文獻引用">文獻引用</h2>
 <p>文獻引用是透過 <code>.bib</code> 檔裡的書目資料以及 <a href="https://pandoc.org/MANUAL.html#citation-syntax">Pandoc’s Citation syntax</a> 達成。<code>.bib</code> 檔的產生方式可以由 Endnote, Zotero, JabRef 等書目管理軟體匯出。匯出後，將檔名命名為 <code>ref.bib</code> 取代根目錄中原本的檔案。</p>
 <p>下方是 <code>.bib</code> 內的一篇引用資料 (一個 <code>.bib</code> 可以有很多篇)：</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode bib"><code class="sourceCode bibtex"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">leung2008</span>,</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Multicultural Experience Enhances Creativity: {{The}} When and How.},</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {63},</span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">issn</span> = {1935-990X(Electronic),0003-066X(Print)},</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1037/0003-066X.63.3.169},</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {3},</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journaltitle</span> = {American Psychologist},</span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">date</span> = {2008},</span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {169-181},</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">keywords</span> = {*Cognition,*Creativity,</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    *Culture (Anthropological),</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    *Experiences (Events),Multiculturalism},</span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Leung, Angela Ka-yee and </span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>    Maddux, William W. and </span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>    Galinsky, Adam D. and Chiu, Chi-yue}</span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode bib"><code class="sourceCode bibtex"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="va">@article</span>{<span class="ot">leung2008</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">title</span> = {Multicultural Experience Enhances Creativity: {{The}} When and How.},</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">volume</span> = {63},</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">issn</span> = {1935-990X(Electronic),0003-066X(Print)},</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">doi</span> = {10.1037/0003-066X.63.3.169},</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">number</span> = {3},</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">journaltitle</span> = {American Psychologist},</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="dt">date</span> = {2008},</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="dt">pages</span> = {169-181},</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">keywords</span> = {*Cognition,*Creativity,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    *Culture (Anthropological),</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>    *Experiences (Events),Multiculturalism},</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">author</span> = {Leung, Angela Ka-yee and </span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>    Maddux, William W. and </span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    Galinsky, Adam D. and Chiu, Chi-yue}</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <p>其中第一行的 <code>leung2008</code> 即為 <strong>citation key</strong>。Pandoc 透過 <code>@citekey</code> (e.g., <code>@leung2008</code>) 在 <code>.md</code> 檔中插入 citation。匯出論文時，Pandoc 會依據 <code>cite-style.csl</code> 的格式自動產生引用文獻。下方為一些文獻引用語法的範例，詳見 <a href="https://pandoc.org/MANUAL.html#citation-syntax">Pandoc’s Citation syntax</a>。</p>
 <div id="tbl:citation">
 <table>
@@ -380,9 +383,6 @@ table.linguistic-example td {
 </tbody>
 </table>
 </div>
-<h2 id="程式碼">程式碼</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode python"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> c <span class="kw">in</span> <span class="st">&quot;Hello World!&quot;</span>:</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(c)</span></code></pre></div>
 <h2 id="sec:cross-ref">文內超連結 (cross-referencing)</h2>
 <h3 id="image">Image</h3>
 <figure>
@@ -608,7 +608,7 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
     })
 
     function get_files() {
-        return 'index.html__01-intro.html__02-chapter2.html__appendix-A.html__appendix-B.html__';
+        return 'index.html__01-intro.html__02-pandocSyntax.html__appendix-A.html__appendix-B.html__';
     };
 </script>
 
