@@ -312,7 +312,7 @@
                 },
                 computed: {
                     currFile() {
-                        let ch = window.location.href.split("/");
+                        let ch = window.location.href.replace(window.location.hash, "").split("/");
                         return ch[ch.length - 1]
                     },
                     currIndex() {
