@@ -348,26 +348,32 @@ table.linguistic-example td {
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> citation-style.csl <span class="co"># 引用格式 (至 zotero.org/styles 下載)</span></span></code></pre></div>
 
 <div id="tocChap">
-    <nav>
-        <ul>
-            <li v-for="f, i in files">
-                <a :href="f" :class="{ active: currFile == f }">
-                    {{ names[i] }}
-                </a>
-            </li>
+    <ul class="chapter-toc">
+        <li v-for="f, i in files">
+            <a :href="f" :class="{ active: currFile == f }">
+                {{ names[i] }}
+            </a>
+        </li>
+    </ul>
 
-            
-            <template v-if="github != null">
-                <br>
-                <li><a :href="github.overleaf" target="_blank">
-                    <img src="https://img.yongfu.name/org/overleaf.svg" style="height:.7em;"> PDF
-                </a></li>
-                <li><a :href="github.repo" target="_blank">
-                    <img src="https://img.yongfu.name/org/github.svg" style="height:.7em;"> Source
-                </a></li>
-            </template>
-        </ul>
-    </nav>
+    <ul class="external-links">
+        <template v-if="github != null">
+            <li><a :href="github.overleaf" target="_blank">
+                <img src="https://img.yongfu.name/org/overleaf.svg" style="height:.7em;"> PDF
+            </a></li>
+            <li><a :href="github.repo" target="_blank">
+                <img src="https://img.yongfu.name/org/github.svg" style="height:.7em;"> Source
+            </a></li>
+        </template>
+        <template v-else>
+            <li><span class="disabled">
+                <img src="https://img.yongfu.name/org/overleaf.svg" style="height:.7em;"> PDF
+            </span></li>
+            <li><span class="disabled">
+                <img src="https://img.yongfu.name/org/github.svg" style="height:.7em;"> Source
+            </span></li>
+        </template>
+    </ul>
 
 
     <div class="prev-next-nav">
@@ -415,6 +421,7 @@ table.linguistic-example td {
                 return (this.currIndex + 1)
             },
             github() {
+                if (!window.location.origin.startsWith("http")) return null
                 if (!window.location.origin.includes('github.io')) 
                     return {"repo": "https://github.com/liao961120/thesis", "overleaf": "https://www.overleaf.com/docs?engine=xelatex&main_document=main.tex&snip_uri=https://liao961120.github.io/thesis/overleaf.zip"}
                 let user = window.location.origin.replace(".github.io", "").replace("https://", "").replace("http://", "");
@@ -470,11 +477,22 @@ table.linguistic-example td {
         color: rgb(54, 179, 54);
         text-decoration: none;
     }
-    #tocChap ul {
+    #tocChap ul.chapter-toc {
         position: fixed;
         top: 50px;
         left: 0;
         margin: 0;
+    }
+    #tocChap ul.external-links {
+        position: fixed;
+        bottom: 15px;
+        left: 0;
+        margin: 0;
+        font-size: 0.8em;
+    }
+    #tocChap .disabled {
+        color: grey;
+        cursor: pointer;
     }
     #tocChap .prev-next-nav {
         position: relative;
