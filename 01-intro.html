@@ -281,9 +281,9 @@ table.linguistic-example td {
 }
 .js-toc {
     position: fixed;
-    right: 1%;
-    top: 1%;
-    margin-top: 2em;
+    right: 0;
+    top: 0;
+    margin-top: 50px;
     margin-right: 1.5em;
     width: 17.5%;
     min-width: 200px;
@@ -363,11 +363,11 @@ table.linguistic-example td {
         <a v-if="prevIndex != null" :href="files[prevIndex]">
             <button>« {{names[prevIndex]}}</button>
         </a>
-        <button v-else disabled>« {{names[currIndex]}}</button>
+        <button v-else disabled>« Main</button>
         <a v-if="nextIndex != null" :href="files[nextIndex]">
             <button>{{names[nextIndex]}} »</button>
         </a>
-        <button v-else disabled>{{names[currIndex]}} »</button>
+        <button v-else disabled>End »</button>
     </div>
 
 </div>
@@ -376,7 +376,6 @@ table.linguistic-example td {
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script> -->
 <!-- production version, optimized for size and speed -->
 <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
-<script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.3"></script>
 
 <script>
     var app = new Vue({
@@ -389,7 +388,9 @@ table.linguistic-example td {
         computed: {
             currFile() {
                 let ch = window.location.href.replace(window.location.hash, "").split("/");
-                return ch[ch.length - 1]
+                ch = ch[ch.length - 1]
+                if (ch == "") return "index.html"
+                return ch
             },
             currIndex() {
                 return this.files.indexOf(this.currFile)
@@ -451,7 +452,7 @@ table.linguistic-example td {
     }
     #tocChap ul {
         position: fixed;
-        top: 1em;
+        top: 50px;
         left: 0;
         margin: 0;
     }
