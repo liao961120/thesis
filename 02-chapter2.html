@@ -238,10 +238,8 @@ body {
     line-height: 1.38;
     max-width: 38em;
 }
-h1 {
-    text-align: center;
-}
 h1.title {
+    text-align: center;
     margin-top: 0;
     margin-bottom: 0.2em;
     font-size: 2.2rem;
@@ -310,7 +308,7 @@ table.linguistic-example td {
     min-width: 200px;
 }
 </style>
-<!-- <link rel="stylesheet" href="../deps/custom.css"> -->
+<link rel="stylesheet" href="custom.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
 
 </head>
@@ -532,14 +530,28 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
 </div>
 
 <div id="tocChap">
-    {{ files_str }}
     <nav>
         <ul>
             <li v-for="f, i in files">
-                <a :href="f" :class="{ active: currFile == f }">{{ names[i] }}</a>
+                <a :href="f" :class="{ active: currFile == f }">
+                    {{ names[i] }}
+                </a>
             </li>
         </ul>
     </nav>
+
+
+    <div class="prev-next-nav">
+        <a v-if="prevIndex != null" :href="files[prevIndex]">
+            <button>« {{names[prevIndex]}}</button>
+        </a>
+        <button v-else disabled>« {{names[currIndex]}}</button>
+        <a v-if="nextIndex != null" :href="files[nextIndex]">
+            <button>{{names[nextIndex]}} »</button>
+        </a>
+        <button v-else disabled>{{names[currIndex]}} »</button>
+    </div>
+
 </div>
 
 <!-- development version, includes helpful console warnings -->
@@ -560,10 +572,22 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
             currFile() {
                 let ch = window.location.href.split("/");
                 return ch[ch.length - 1]
+            },
+            currIndex() {
+                return this.files.indexOf(this.currFile)
+            },
+            prevIndex() {
+                if (this.currIndex == 0) return null
+                return (this.currIndex - 1)
+            },
+            nextIndex() {
+                if (this.currIndex == this.files.length - 1) return null
+                return (this.currIndex + 1)
             }
         },
         created: function () {
             this.files = get_files().split("__");
+            this.files.pop();
             this.names = this.files.map(fp => {
                 fp = fp.replace(".html", "");
                 if (fp == "index") return "Main";
@@ -583,8 +607,8 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
         }
     })
 
-    function get_files(){
-       return 'index.html__01-intro.html__02-chapter2.html__appendix-A.html__appendix-B.html__';
+    function get_files() {
+        return 'index.html__01-intro.html__02-chapter2.html__appendix-A.html__appendix-B.html__';
     };
 </script>
 
@@ -596,22 +620,48 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
     #tocChap ul li {
         line-height: 1.5em;
     }
-    #tocChap a:hover {
+    #tocChap ul a:hover {
         text-decoration: underline;
     }
-    #tocChap a {
+    #tocChap ul a {
         text-decoration: none;
     }
-    #tocChap a.active {
+    #tocChap ul a.active {
         pointer-events: none;
         color: rgb(54, 179, 54);
         text-decoration: none;
     }
-    #tocChap {
+    #tocChap ul {
         position: fixed;
         top: 1em;
         left: 0;
         margin: 0;
+    }
+    #tocChap .prev-next-nav {
+        position: relative;
+        display: block;
+        width: 50%;
+        margin: 2em auto 0;
+        padding: 0 auto;
+        text-align: center
+    }
+    #tocChap .prev-next-nav button {
+        height: 2.3em;
+        border: none;
+        background-color: greenyellow;
+        border-radius: 0.4em;
+    }
+    #tocChap .prev-next-nav button:hover {
+        background-color: rgb(95, 255, 47);
+        cursor: pointer;
+    }
+    #tocChap button:disabled:hover,
+    #tocChap button:disabled {
+        background-color: rgb(221, 221, 221);
+        color: rgb(139, 139, 139);
+    }
+    #tocChap button a:hover {
+        text-decoration: none;
     }
 </style>
 <nav class="js-toc toc toc-right relative z-1 transition--300 absolute pa4 pt5 is-position-fixed"></nav>
@@ -646,7 +696,7 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
 <style>
     @media only screen and (max-width: 1000px) {
         .js-toc,
-        #tocChap {
+        #tocChap ul {
             display: none !important;
         }
     }
@@ -670,9 +720,9 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
     var style1, style2, style3;
     style1 = document.querySelector('h1').style;
     if (ch[0] == "appendix")
-      style1.setProperty('--h1before', '"' + ap + '"' + ' " "');
+      style1.setProperty('--h1before', '"Appendix "' + '"' + ap + '"' + ' " "');
     else
-      style1.setProperty('--h1before', 'counter(chapter) " "');
+      style1.setProperty('--h1before', '"Chapter " counter(chapter) " "');
 
     document.querySelectorAll('h2').forEach(e => {
       if (ch[0] == "appendix")
@@ -699,6 +749,7 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
   </script>
 
   <style>
+    /* Set counter */
     body {
       counter-reset: chapter;
     }
@@ -706,23 +757,25 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
     h1 {
       counter-reset: section;
     }
-
-    h1:before,
     h2:before,
     h3::before {
       display: inline-block;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      font-size: 0.75em;
+      font-size: 0.85em;
       margin-right: 0.7em;
       text-decoration: underline 3px;
     }
-
     h1:before {
+      display: block;
       counter-increment: chapter;
       content: var(--h1before);
       font-weight: bold;
+      font-size: 0.57em;
+      margin-bottom: 0.15em;
+      font-family: Alegreya, 'Times New Roman', Times, serif;
+      font-style: italic;
+      text-align: left;
     }
-
     h2 {
       counter-reset: subsection;
     }
@@ -736,6 +789,27 @@ Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives
     }
     .unnumbered::before {
       display: none;
+    }
+
+    /* Heading styles */
+    h1, h2 {
+    font-size: 1.4em;
+    border-bottom: 1px solid;
+    }
+    h1:not(.title) {
+        /* border-top: 1px solid; */
+        border-bottom: 2px solid;
+        text-align: left;
+        padding-top: 0.15em;
+    }
+    h2::before {
+        text-decoration: none!important;
+        border-bottom: 4px solid;
+        vertical-align: bottom !important;
+    }
+    h1 {
+        font-size: 1.7em;
+        text-align: left;
     }
   </style>
 
