@@ -245,6 +245,17 @@ table.linguistic-example td {
                     {{ names[i] }}
                 </a>
             </li>
+
+            
+            <template v-if="github != null">
+                <br>
+                <li><a :href="github.overleaf" target="_blank">
+                    <img src="https://img.yongfu.name/org/overleaf.svg" style="height:.7em;"> PDF
+                </a></li>
+                <li><a :href="github.repo" target="_blank">
+                    <img src="https://img.yongfu.name/org/github.svg" style="height:.7em;"> Source
+                </a></li>
+            </template>
         </ul>
     </nav>
 
@@ -292,6 +303,15 @@ table.linguistic-example td {
             nextIndex() {
                 if (this.currIndex == this.files.length - 1) return null
                 return (this.currIndex + 1)
+            },
+            github() {
+                if (!window.location.origin.includes('github.io')) 
+                    return {"repo": "https://github.com/liao961120/thesis", "overleaf": "https://www.overleaf.com/docs?engine=xelatex&main_document=main.tex&snip_uri=https://liao961120.github.io/thesis/overleaf.zip"}
+                let user = window.location.origin.replace(".github.io", "").replace("https://", "").replace("http://", "");
+                let repo = window.location.href.replace(window.location.origin, "").split("/")[1];
+                let repo_url = `https://github.com/${user}/${repo}`;
+                let overleaf = `https://www.overleaf.com/docs?engine=xelatex&main_document=main.tex&snip_uri=https://${user}.github.io/${repo}/overleaf.zip`
+                return {"repo": repo_url, "overleaf": overleaf}
             }
         },
         created: function () {
@@ -349,7 +369,7 @@ table.linguistic-example td {
     #tocChap .prev-next-nav {
         position: relative;
         display: block;
-        width: 50%;
+        width: 100%;
         margin: 2em auto 0;
         padding: 0 auto;
         text-align: center
