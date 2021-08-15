@@ -1,5 +1,12 @@
 # Pandoc's Markdown Syntax
 
+## 程式碼
+
+```python
+for c in "Hello World!":
+    print(c)
+```
+
 ## 文獻引用
 
 文獻引用是透過 `.bib` 檔裡的書目資料以及 [Pandoc's Citation syntax](https://pandoc.org/MANUAL.html#citation-syntax) 達成。`.bib` 檔的產生方式可以由 Endnote, Zotero, JabRef 等書目管理軟體匯出。匯出後，將檔名命名為 `ref.bib` 取代根目錄中原本的檔案。
@@ -36,16 +43,6 @@
 | 其它註解 | `see @kassin2017, pp. 33-35`          | see @kassin2017, pp. 33-35          |
 
 Table: 文獻引用語法. {#tbl:citation}
-
-
-
-## 程式碼
-
-```python
-for c in "Hello World!":
-    print(c)
-```
-
 
 ## 文內超連結 (cross-referencing) {#sec:cross-ref}
 
