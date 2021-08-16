@@ -280,6 +280,12 @@ blockquote p {
     text-align: left;
     font-style: italic;
 }
+table:not(.linguistic-example) {
+    display: table;
+    width: 100%;
+    min-width: 370px;
+    margin-bottom: 1.5em;
+}
 table.linguistic-example tbody,
 table.linguistic-example tr,
 table.linguistic-example td {
@@ -343,40 +349,40 @@ table.linguistic-example td {
 <table>
 <caption>Table 1. 文獻引用語法.</caption>
 <colgroup>
-<col style="width: 10%" />
-<col style="width: 46%" />
+<col style="width: 11%" />
+<col style="width: 45%" />
 <col style="width: 43%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th style="text-align: center;"></th>
+<th></th>
 <th>內文</th>
 <th>輸出 (根據 <code>.csl</code> 改變)</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td style="text-align: center;">單篇</td>
+<td>單篇</td>
 <td><code>[@stanford2008]</code></td>
 <td><span class="citation" data-cites="stanford2008">(Stanford, 2008)</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">多篇</td>
+<td>多篇</td>
 <td><code>[@stanford2008; @kassin2017]</code></td>
 <td><span class="citation" data-cites="stanford2008 kassin2017">(Kassin et al., 2017; Stanford, 2008)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">文內引用</td>
+<td>文內引用</td>
 <td><code>@stanford2008 says ...</code></td>
 <td><span class="citation" data-cites="stanford2008">Stanford (2008)</span> says</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">隱藏作者</td>
+<td>隱藏作者</td>
 <td><code>Stanford says blah [-@stanford2008]</code></td>
 <td>Stanford says blah <span class="citation" data-cites="stanford2008">(2008)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">其它註解</td>
+<td>其它註解</td>
 <td><code>see @kassin2017, pp. 33-35</code></td>
 <td>see <span class="citation" data-cites="kassin2017">Kassin et al. (2017)</span>, pp. 33-35</td>
 </tr>
@@ -433,7 +439,120 @@ c &amp;= 1
 \end{aligned}
 \qquad(1)\]</span></span></p>
 <p>Reference equations with Equation (<a href="#eq:equation-1">1</a>).</p>
-<h2 id="linguistics">Linguistics</h2>
+<h2 id="複雜表格">複雜表格</h2>
+<p>Pandoc’s Markdown 支援一些簡約的<a href="https://pandoc.org/MANUAL.html#tables">表格語法</a>，但有時候我們需要製作更複雜的表格 (例如，某些格子佔兩行或兩列以上)，而 Pandoc’s Markdown 尚未<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>有語法支援。這時我們可以利用表格製作工具如 <a href="https://www.tablesgenerator.com/">TablesGenerator.com</a> 去製作出 LaTeX 以及 HTML 的表格，再使用 Pandoc 的<a href="https://github.com/liao961120/insertTables">擴充程式</a>將這些表格自動插入輸出文件中。要使用這功能，</p>
+<ol type="1">
+<li>在 Markdown 內文於想新增表格處新增一個以 Markdown 語法撰寫的 placeholder table，並以 <a href="https://lierdakil.github.io/pandoc-crossref/">pandoc-crossref</a> 的 table cross-referencing 語法標記 ID (e.g., <code>tbl:custom-table</code>，見 Section <a href="#sec:cross-ref">1.3</a>)</li>
+<li>將製作出來的表格程式碼複製貼上至 <code>chapters/tables.tex</code> (LaTeX 語法) 以及 <code>chapters/tables.html</code> (HTML 語法)</li>
+<li>並在表格程式碼的前後加上特殊標記 <code>&lt;COMMENT&gt; tbl:table-id &lt;COMMENT&gt;</code> (開頭) 與 <code>&lt;COMMENT&gt; END &lt;COMMENT&gt;</code> (結尾)。例如 HTML 的語法會是 <code>&lt;!-- tbl:custom-table --&gt;</code> (開頭) 與 <code>&lt;!-- END --&gt;</code> (結尾)；LaTeX 的語法是 <code>% tbl:custom-table %</code> (開頭) 與 <code>% END %</code> (結尾)。</li>
+</ol>
+<p>例如，</p>
+<!-- tbl:custom-table -->
+<style type="text/css">
+    .tg {
+        border-collapse: collapse;
+        border-spacing: 0;
+    }
+
+    .tg td {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg th {
+        border-color: black;
+        border-style: solid;
+        border-width: 1px;
+        font-family: Arial, sans-serif;
+        font-size: 14px;
+        font-weight: normal;
+        overflow: hidden;
+        padding: 10px 5px;
+        word-break: normal;
+    }
+
+    .tg .tg-c3ow {
+        border-color: inherit;
+        text-align: center;
+        vertical-align: top
+    }
+
+    .tg .tg-7btt {
+        border-color: inherit;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: top
+    }
+
+    .tg .tg-uzvj {
+        border-color: inherit;
+        font-weight: bold;
+        text-align: center;
+        vertical-align: middle
+    }
+</style>
+<table class="tg">
+    <thead>
+        <tr>
+            <th class="tg-7btt" colspan="2" rowspan="2"></th>
+            <th class="tg-7btt" colspan="2"><span style="font-weight:bold">Heuristic</span></th>
+        </tr>
+        <tr>
+            <td class="tg-c3ow">plausible</td>
+            <td class="tg-c3ow">implausible</td>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td class="tg-uzvj" rowspan="2"><span style="font-weight:bold">Syntax-driven</span></td>
+            <td class="tg-c3ow">plausible</td>
+            <td class="tg-c3ow">P600 N400 </td>
+            <td class="tg-c3ow">X</td>
+        </tr>
+        <tr>
+            <td class="tg-c3ow">implausible</td>
+            <td class="tg-c3ow">P600</td>
+            <td class="tg-c3ow">N400</td>
+        </tr>
+    </tbody>
+<caption id="tbl:custom-table">Table 3. 這個表格會被代換成 <code>tables.tex</code> () 及 <code>tables.html</code> () 裡定義的表格</caption></table>
+<!-- END -->
+<div id="tbl:normal">
+<table>
+<caption>Table 4. 這個表格不會被取代，因為 <code>tbl:normal</code> 並未出現在 <code>tables.tex</code> 與 <code>tables.html</code> 中</caption>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Column A</th>
+<th style="text-align: center;">Column B</th>
+<th style="text-align: center;">Column C</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">A1</td>
+<td style="text-align: center;">B1</td>
+<td style="text-align: center;">C1</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">A2</td>
+<td style="text-align: center;">B2</td>
+<td style="text-align: center;">C2</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">A3</td>
+<td style="text-align: center;">B3</td>
+<td style="text-align: center;">C3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h2 id="語言學相關排版">語言學相關排版</h2>
 <h3 id="linguistic-examples">Linguistic Examples</h3>
 <div id="ex1">
 <table class="linguistic-example">
@@ -528,6 +647,12 @@ Kassin, S., Fein, S., &amp; Markus, H. R. (2017). <em>Social <span>Psychology</s
 Stanford, J. N. (2008). Child dialect acquisition: <span>New</span> perspectives on parent/peer Influence1. <em>Journal of Sociolinguistics</em>, <em>12</em>(5), 567–596. <a href="https://doi.org/10.1111/j.1467-9841.2008.00383.x">https://doi.org/10.1111/j.1467-9841.2008.00383.x</a>
 </div>
 </div>
+<section class="footnotes" role="doc-endnotes">
+<hr />
+<ol>
+<li id="fn1" role="doc-endnote"><p>目前尚在開發中，相關討論參見 <a href="https://github.com/jgm/pandoc/issues/6317" class="uri">https://github.com/jgm/pandoc/issues/6317</a>。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
 
 <div id="tocChap">
     <ul class="chapter-toc">

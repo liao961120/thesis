@@ -261,6 +261,12 @@ blockquote p {
     text-align: left;
     font-style: italic;
 }
+table:not(.linguistic-example) {
+    display: table;
+    width: 100%;
+    min-width: 370px;
+    margin-bottom: 1.5em;
+}
 table.linguistic-example tbody,
 table.linguistic-example tr,
 table.linguistic-example td {
@@ -337,15 +343,17 @@ table.linguistic-example td {
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs/                  <span class="co"># 論文輸出</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> chapters/              <span class="co"># 論文內容</span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 01-intro.md           <span class="co"># 第一章 (命名規則：{##}-{title}.md)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 02-chapter2.md        <span class="co"># 第二章 (命名規則：{##}-{title}.md)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 02-pandocSyntax.md    <span class="co"># 第二章 (命名規則：{##}-{title}.md)</span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-A.md         <span class="co"># 附錄 A (命名規則：appendix-{編碼}.md)</span></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-B.md         <span class="co"># 附錄 B (命名規則：appendix-{編碼}.md)</span></span>
 <span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── denotations.md        <span class="co"># 符號列表 (若無需用到，請將檔案裡的內容刪除，但勿刪除此檔案)</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── references.bib        <span class="co"># 引用書目</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> └── figures/              <span class="co"># 圖片存放處 (勿刪除此資料夾)</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> deps/                  <span class="co"># 論文模板、程式輸出相依檔案</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a> <span class="ex">  </span> ├── ...</span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> citation-style.csl <span class="co"># 引用格式 (至 zotero.org/styles 下載)</span></span></code></pre></div>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.tex            <span class="co"># 複雜表格定義 (LaTeX 語法)</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.html           <span class="co"># 複雜表格定義 (HTML 語法)</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> └── figures/              <span class="co"># 圖片存放處 (勿刪除此資料夾)</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> deps/                  <span class="co"># 論文模板、程式輸出相依檔案</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a> <span class="ex">  </span> ├── ...</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> citation-style.csl <span class="co"># 引用格式 (至 zotero.org/styles 下載)</span></span></code></pre></div>
 
 <div id="tocChap">
     <ul class="chapter-toc">
