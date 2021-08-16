@@ -11,6 +11,7 @@ fi
     chapters/0*.md deps/references.md chapters/appendix*.md \
     -s -o main.tex \
     -F ./pandoc-crossref \
+    --lua-filter deps/lua/insertTables.lua \
     --lua-filter deps/lua/pandoc-ling.lua \
     --bibliography chapters/references.bib \
     --citeproc \
@@ -28,3 +29,4 @@ cp -r chapters/figures deps main.tex deps/ntuthesis.cls overleaf/
 zip -r overleaf.zip overleaf
 mv overleaf.zip docs/
 rm -r overleaf main.tex
+cp thesis.pdf docs/  # for publish on GitHub Pages (need manual update)

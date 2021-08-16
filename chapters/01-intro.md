@@ -64,11 +64,13 @@ VSCode 的擴充套件 [Markdown Preview Enhanced](https://marketplace.visualstu
 ├── docs/                  # 論文輸出
 ├── chapters/              # 論文內容
 │   ├── 01-intro.md           # 第一章 (命名規則：{##}-{title}.md)
-│   ├── 02-chapter2.md        # 第二章 (命名規則：{##}-{title}.md)
+│   ├── 02-pandocSyntax.md    # 第二章 (命名規則：{##}-{title}.md)
 │   ├── appendix-A.md         # 附錄 A (命名規則：appendix-{編碼}.md)
 │   ├── appendix-B.md         # 附錄 B (命名規則：appendix-{編碼}.md)
 │   ├── denotations.md        # 符號列表 (若無需用到，請將檔案裡的內容刪除，但勿刪除此檔案)
 │   ├── references.bib        # 引用書目
+│   ├── tables.tex            # 複雜表格定義 (LaTeX 語法)
+│   ├── tables.html           # 複雜表格定義 (HTML 語法)
 │   └── figures/              # 圖片存放處 (勿刪除此資料夾)
 └── deps/                  # 論文模板、程式輸出相依檔案
     ├── ...

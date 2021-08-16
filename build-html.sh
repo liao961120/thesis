@@ -32,7 +32,7 @@ tocChaptmp=$(<deps/tocChap.html)
 echo "${tocChaptmp//ANCHOR.TOCCHAP/$chaptoc}" > "tocChapTmp.html"
 
 # Build index page
-./pandoc setup.md chapters/denotations.md -o chapters/index.html \
+./pandoc setup.md chapters/denotations.md -o docs/index.html \
     --template deps/main.html5 \
     -H deps/style.html \
     -A tocChapTmp.html \
@@ -47,27 +47,25 @@ for IN in chapters/*.md; do
     fi
     
     OUT=${IN/%md/html}
-    ./pandoc setup.md $IN -o $OUT \
+    fname=$(basename $OUT)
+    ./pandoc setup.md $IN -o docs/$fname \
         --template deps/chapter.html5 \
         -H deps/style.html \
         -A tocChapTmp.html \
         -A deps/after-body.html \
         -F ./pandoc-crossref \
+        --lua-filter deps/lua/insertTables.lua \
         --lua-filter deps/lua/pandoc-ling.lua \
         --lua-filter deps/lua/reference-title.lua \
         --bibliography chapters/references.bib \
         --citeproc \
         --csl deps/citation-style.csl \
         --mathjax
-    
-    # Write filename for index generation
-    fname=$(basename $OUT)
-    echo $fname >> chapter_index.txt
 done
 
 # Move files
 [[ -d docs ]] || mkdir docs
-mv chapters/*.html docs/
+# mv chapters/*.html docs/
 cp -r chapters/figures docs/
 touch docs/custom.css
 
