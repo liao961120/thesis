@@ -78,6 +78,9 @@ function stringify(tree)
         elseif key == 'Emph' then
             resolve = stringify(node.content)
             result[#result + 1] = writeEmph(resolve)
+        elseif key == 'Link' then
+            resolve = stringify(node.content)
+            result[#result + 1] = writeLink(resolve, node.target)
         elseif key == 'Str' or key == 'MetaString' then
             result[#result + 1] = escape(node.text)
         elseif key == 'RawInline' then
@@ -114,6 +117,16 @@ function writeEmph(x)
     if format == 'markdown' then return "*" .. x .. "*" end
     return x
 end
+function writeLink(x, link)
+    if format == 'latex' or format == 'tex' then 
+        return '\\href{' .. link .. '}{' .. x .. '}'
+    end
+    if format == 'html' then 
+        return '<a href="' .. link .. '">' .. x .. '</a>'
+    end
+    if format == 'markdown' then return "[" .. x .. "](" .. link .. ")" end
+    return x
+end 
 function writeCode(x)
     if format == 'latex' or format == 'tex' then return '\\texttt{' .. x .. '}' end
     if format == 'html' then return "<code>" .. x .. "</code>" end
@@ -126,6 +139,7 @@ function writeMath(x)
     if format == 'markdown' then return "$" .. x .. "$" end
     return x
 end
+
 
 
 -- Read raw table text from tables.tex/tables.html
