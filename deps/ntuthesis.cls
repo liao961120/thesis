@@ -912,8 +912,8 @@
 % 設定行距
 % 1.2：1.5 倍行距  中文請設 1.2
 % 1.6：2.0 倍行距  英文請設 1.6
-\newcommand{\zhstretch}{\setstretch{1.5}}
-\newcommand{\enstretch}{\setstretch{2}}
+\newcommand{\zhstretch}{\setstretch{1.2}}
+\newcommand{\enstretch}{\setstretch{1.6}}
 \enstretch
 \ifthenelse{\equal{\ntu@language}{chinese}}{
     \zhstretch
