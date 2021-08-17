@@ -30,8 +30,8 @@ abstract: |
     
     條立聽氣都在驚早。構每法我南化我竟他度人源這意戲算等！人產樂，的幾導看有與天種政過自念業聽多相長法三解夫國行星反不，排著止那書自個真響名神的然子率？出沒務我送任日；然人陸愛正兩人能定。
 abstract-en: |
-    Chapter 1 introduces the template. Tools facilitating writing in Pandoc's Markdown
-    are also introduced. Instructions about compiling the theis can be found in Chapter 1.
+    Chapter 1 introduces the template. Handy tools for authoring with Markdown are also
+    introduced. Instructions about compiling the theis is found in Chapter 1.
     Chapter 2 documents important features of Pandoc's Markdown
     for academic writing, including citation, cross-referencing, complex table creation, and
     styling of linguistic examples and interlinear glossing.
