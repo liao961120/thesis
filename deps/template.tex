@@ -187,8 +187,13 @@
 \@ifpackageloaded{float}{}{\usepackage{float}}
 \floatstyle{ruled}
 \@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+$if(listingTitle)$
+\floatname{codelisting}{$listingTitle$}
+\newcommand*\listoflistings{\listof{codelisting}{$listingTitle$目錄}}
+$else$
 \floatname{codelisting}{Listing}
 \newcommand*\listoflistings{\listof{codelisting}{List of Listings}}
+$endif$
 \makeatother
 
 % Linguistic alignment
