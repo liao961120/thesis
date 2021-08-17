@@ -53,6 +53,7 @@ for IN in chapters/*.md; do
         -H deps/style.html \
         -A tocChapTmp.html \
         -A deps/after-body.html \
+        --lua-filter deps/lua/rmCiteSpace.lua \
         -F ./pandoc-crossref \
         --lua-filter deps/lua/insertTables.lua \
         --lua-filter deps/lua/pandoc-ling.lua \

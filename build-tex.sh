@@ -10,6 +10,7 @@ fi
 ./pandoc setup.md chapters/denotations.md deps/mainmatter.md \
     chapters/0*.md deps/references.md chapters/appendix*.md \
     -s -o main.tex \
+    --lua-filter deps/lua/rmCiteSpace.lua \
     -F ./pandoc-crossref \
     --lua-filter deps/lua/insertTables.lua \
     --lua-filter deps/lua/pandoc-ling.lua \
