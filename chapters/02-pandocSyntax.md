@@ -137,7 +137,9 @@ b. ^? Question-marks indicate questionable grammaticality.
 c. However, such long sequences sometimes lead to undesirable effects in the layout.
 :::
 
-Example @a-ling-example has no preamble, whereas example @another-ling-example has.
+Example 
+@a-ling-example has no preamble, whereas example 
+@another-ling-example has.
 
 
 ### Interlinear Glossing
@@ -149,4 +151,5 @@ Example @a-ling-example has no preamble, whereas example @another-ling-example h
 | Kui makes the mango fall. (translation)
 :::
 
-See example @gloss-a.
+See example 
+@gloss-a.
