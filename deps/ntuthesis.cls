@@ -896,7 +896,7 @@
 % 根據設定決定是否添加浮水印
 % Insert watermark according to the config.
 %
-\ifthenelse{\equal{\ntu@watermark}{true}}{\makewatermark{0.25}{deps/seal.pdf}}{}
+\ifthenelse{\equal{\ntu@watermark}{true}}{\makewatermark{0.11}{deps/seal.pdf}}{}
 
 % 根據設定決定是否添加數位標識
 % Insert DOI according to the config.
