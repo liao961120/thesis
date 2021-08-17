@@ -917,8 +917,14 @@
 \enstretch
 \ifthenelse{\equal{\ntu@language}{chinese}}{
     \zhstretch
+    \renewcommand{\figurename}{圖}
+    \renewcommand{\tablename}{表}
+    \renewcommand{\appendixname}{附錄}
 }
 
-% 中文化
-% \newcommand{\loflabel}{圖}
-% \newcommand{\lotlabel}{表}
+
+% deal with nuts floating figures
+\renewcommand{\textfraction}{0.05}
+\renewcommand{\topfraction}{0.8}
+\renewcommand{\bottomfraction}{0.8}
+\renewcommand{\floatpagefraction}{0.75}
