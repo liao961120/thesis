@@ -5,10 +5,10 @@
     <meta charset="utf-8" />
     <meta name="generator" content="pandoc" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-        <meta name="author" content="王小明" />
-            <meta name="dcterms.date" content="2021-08-13" />
+        <meta name="author" content="廖永賦" />
+            <meta name="dcterms.date" content="2021-08-17" />
             <meta name="keywords" content="Pandoc, LaTeX, Overleaf, 中文, 論文" />
-            <title>國立臺灣大學碩博士畢業論文模版</title>
+            <title>Pandoc 臺大碩博士論文模版</title>
     <style>
         html {
           line-height: 1.5;
@@ -153,9 +153,10 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
   <![endif]-->
         <style>
+        @import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
         body {
             font-size: 20px;
-            font-family: FreeSerif, 'Times New Roman', Times, serif;
             line-height: 1.38;
             max-width: 38em;
         }
@@ -203,9 +204,17 @@
         }
         table:not(.linguistic-example) {
             display: table;
-            width: 100%;
-            min-width: 370px;
-            margin-bottom: 1.5em;
+            width: 88%;
+            min-width: 380px;
+            margin: 1em auto 1.8em auto;
+            font-size: 0.9em;
+        }
+        table caption {
+            width: 75%;
+            min-width: 380px;
+            text-align: center;
+            margin: 0 auto 0.2em auto;
+            font-size: 0.95em;
         }
         table.linguistic-example tbody,
         table.linguistic-example tr,
@@ -214,25 +223,44 @@
         }
         /* Code block styles */
         pre.sourceCode {
-            background: rgba(233, 233, 233, 0.685);
+            background: rgba(236, 236, 236, 0.808);
             padding: 0.25em 0.55em;
-            border-radius: 0.2em;
+            border-radius: 0.25em;
+            line-height: 1.25em;
+            font-size: 0.95em;
         }
         div.listing > p {
             text-align: center;
         }
-        /* #refs::before {
-            display: block;
-            content: "References";
+        /* Fonts */
+        @font-face {
+            font-family: "Chinese-Custom";
+            src: local('NotoSerifCJK-Regular'), local('Noto Serif CJK TC Regular'), local('Noto Serif CJK TC');
+        }
+        @font-face {
+            font-family: "Chinese-Custom";
+            src: local("PingFang-TC-Bold"), local("PingFang TC bold"), local('NotoSansCJK-Bold'), local('Noto Sans CJK TC Bold');
             font-weight: bold;
-            font-size: 1.7em;
+        }
+        @font-face {
+            font-family: "Chinese-Custom";
+            src: local('標楷體'), local('AR PL KaitiM Big5'), local('bkai00mp'), local('BiauKai'), local('Kaiti');
             font-style: italic;
-            margin-top: 1em;
-            margin-bottom: 0.5em;
-        } */
-        #references h1 {
-            font-family: 'Noto Serif CJK TC', serif;
-            font-style: italic;
+        }
+        @font-face {
+            font-family: "Chinese-Custom-sans";
+            src: local("PingFang-TC-Regular"), local("PingFang TC regular"), local('NotoSansCJK-Regular'), local('Noto Sans CJK TC Regular');
+            font-weight: bold;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Alegreya', "Chinese-Custom", sans-serif;
+            font-weight: bold;
+        }
+        nav, #tocChap {
+            font-family: 'Alegreya', "Chinese-Custom-sans", serif;
+        }
+        body {
+            font-family: FreeSerif, 'Times New Roman', Libertine, 'PT Serif' "Chinese-Custom", Times, serif;
         }
         .js-toc {
             position: fixed;
@@ -250,13 +278,13 @@
 
 <body>
             <header id="title-block-header">
-        <h1 class="title">國立臺灣大學碩博士畢業論文模版</h1>
-                        <p class="author">王小明</p>
-                        <p class="date">2021-08-13</p>
+        <h1 class="title">Pandoc 臺大碩博士論文模版</h1>
+                        <p class="author">廖永賦</p>
+                        <p class="date">2021-08-17</p>
             </header>
     
         <h1 id="abstract">摘要</h1>
-    <p>家公以務說小水寶房知，持進才課……子再書食國過亮好得著活小入小是次又日要生地化們年路幾學場內。投字資未病候為，始東有爭感已，了除車天成注氣。最花多友臺他應最子一多滿頭方我生字為了了石？前如各來常投到，重生賣大自。</p>
+    <p>第一章簡介此模板，並介紹用於 Markdown 寫作的工具。輸出論文的方法與步驟亦於此章說明。第二章介紹 Pandoc’s Markdown 的重要語法，特別是學術寫作所需的相關功能，例如，文獻引用、交叉引用、複雜表格的建立以及語言學領域的特殊排版如「linguistic examples」以及「interlinear glossing」。</p>
     <p>條立聽氣都在驚早。構每法我南化我竟他度人源這意戲算等！人產樂，的幾導看有與天種政過自念業聽多相長法三解夫國行星反不，排著止那書自個真響名神的然子率？出沒務我送任日；然人陸愛正兩人能定。</p>
         <div class="keywords">
     <span class="k-title">關鍵字：</span>
@@ -265,7 +293,7 @@
     
         
         <h1 id="abstract-en">Abstract</h1>
-    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <p>Chapter 1 introduces the template. Tools facilitating writing in Pandoc’s Markdown are also introduced. Instructions about compiling the theis can be found in Chapter 1. Chapter 2 documents important features of Pandoc’s Markdown for academic writing, including citation, cross-referencing, complex table creation, and styling of linguistic examples and interlinear glossing.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <div class="keywords">
         <span class="k-title">Keywords: </span>

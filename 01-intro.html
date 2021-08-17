@@ -5,8 +5,8 @@
 <meta charset="utf-8" />
 <meta name="generator" content="pandoc" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
-<meta name="author" content="王小明" />
-<meta name="dcterms.date" content="2021-08-13" />
+<meta name="author" content="廖永賦" />
+<meta name="dcterms.date" content="2021-08-17" />
 <meta name="keywords" content="Pandoc, LaTeX, Overleaf, 中文, 論文" />
 <title>PlaceHolder</title>
 <style>
@@ -213,9 +213,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </style>
 <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 <style>
+@import url('https://fonts.googleapis.com/css2?family=Alegreya:ital,wght@0,400;0,700;1,400;1,700&family=PT+Serif:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
 body {
     font-size: 20px;
-    font-family: FreeSerif, 'Times New Roman', Times, serif;
     line-height: 1.38;
     max-width: 38em;
 }
@@ -263,9 +264,17 @@ blockquote p {
 }
 table:not(.linguistic-example) {
     display: table;
-    width: 100%;
-    min-width: 370px;
-    margin-bottom: 1.5em;
+    width: 88%;
+    min-width: 380px;
+    margin: 1em auto 1.8em auto;
+    font-size: 0.9em;
+}
+table caption {
+    width: 75%;
+    min-width: 380px;
+    text-align: center;
+    margin: 0 auto 0.2em auto;
+    font-size: 0.95em;
 }
 table.linguistic-example tbody,
 table.linguistic-example tr,
@@ -274,25 +283,44 @@ table.linguistic-example td {
 }
 /* Code block styles */
 pre.sourceCode {
-    background: rgba(233, 233, 233, 0.685);
+    background: rgba(236, 236, 236, 0.808);
     padding: 0.25em 0.55em;
-    border-radius: 0.2em;
+    border-radius: 0.25em;
+    line-height: 1.25em;
+    font-size: 0.95em;
 }
 div.listing > p {
     text-align: center;
 }
-/* #refs::before {
-    display: block;
-    content: "References";
+/* Fonts */
+@font-face {
+    font-family: "Chinese-Custom";
+    src: local('NotoSerifCJK-Regular'), local('Noto Serif CJK TC Regular'), local('Noto Serif CJK TC');
+}
+@font-face {
+    font-family: "Chinese-Custom";
+    src: local("PingFang-TC-Bold"), local("PingFang TC bold"), local('NotoSansCJK-Bold'), local('Noto Sans CJK TC Bold');
     font-weight: bold;
-    font-size: 1.7em;
+}
+@font-face {
+    font-family: "Chinese-Custom";
+    src: local('標楷體'), local('AR PL KaitiM Big5'), local('bkai00mp'), local('BiauKai'), local('Kaiti');
     font-style: italic;
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-} */
-#references h1 {
-    font-family: 'Noto Serif CJK TC', serif;
-    font-style: italic;
+}
+@font-face {
+    font-family: "Chinese-Custom-sans";
+    src: local("PingFang-TC-Regular"), local("PingFang TC regular"), local('NotoSansCJK-Regular'), local('Noto Sans CJK TC Regular');
+    font-weight: bold;
+}
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Alegreya', "Chinese-Custom", sans-serif;
+    font-weight: bold;
+}
+nav, #tocChap {
+    font-family: 'Alegreya', "Chinese-Custom-sans", serif;
+}
+body {
+    font-family: FreeSerif, 'Times New Roman', Libertine, 'PT Serif' "Chinese-Custom", Times, serif;
 }
 .js-toc {
     position: fixed;
