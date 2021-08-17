@@ -35,14 +35,16 @@ abstract-en: |
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 ########## Cross-ref options ###########
 linkReferences: true
-figureTitle: "Figure"
-tableTitle: "Table"
-listingTitle: "Listing"
-titleDelim: "."
-figPrefix: "Figure"
-eqnPrefix: "Equation"
-tblPrefix: "Table"
-lstPrefix: "Listing"
-secPrefix: "Section"
-eqnPrefixTemplate: "$$p$$&nbsp;($$i$$)"
+figureTitle: "圖"            # 圖 | Figure
+tableTitle: "表"             # 表 | Table
+listingTitle: "程式碼"       # 程式碼 | Listing
+figPrefix: "圖"              # 圖 | Figure
+eqnPrefix: "公式"            # 公式 | Equation
+tblPrefix: "表"              # 表 | Table
+lstPrefix: "程式碼"          # 程式碼 | Listing
+secPrefix: "章節"            # 章節 | Section 
+titleDelim: "："             # ： | .
+tableTemplate: "$$tableTitle$$ $$i$$$$titleDelim$$$$t$$"   # $$tableTitle$$ $$i$$$$titleDelim$$ $$t$$
+figureTemplate: "$$figureTitle$$ $$i$$$$titleDelim$$$$t$$" # $$figureTitle$$ $$i$$$$titleDelim$$ $$t$$
+eqnPrefixTemplate: "$$p$$&nbsp;($$i$$)"  # $$p$$&nbsp;($$i$$) | $$p$$&nbsp;$$i$$
 ---
