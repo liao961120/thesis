@@ -233,23 +233,27 @@
             text-align: center;
         }
         /* Fonts */
+        /* Regular (宋體/明體) */
         @font-face {
             font-family: "Chinese-Custom";
-            src: local('NotoSerifCJK-Regular'), local('Noto Serif CJK TC Regular'), local('Noto Serif CJK TC');
+            src: local('LiSong Pro'), local('儷宋 Pro'), local('NotoSerifCJK-Regular'), local('Noto Serif CJK TC Regular'), local('Noto Serif CJK TC'), local('細明體'), local('MingLiU'), local('新細明體'), local('PMingLiU');
         }
+        /* Bold (黑體粗) */
         @font-face {
             font-family: "Chinese-Custom";
-            src: local("PingFang-TC-Bold"), local("PingFang TC bold"), local('NotoSansCJK-Bold'), local('Noto Sans CJK TC Bold');
+            src: local("PingFang-TC-Bold"), local("PingFang TC bold"), local('NotoSansCJK-Bold'), local('Noto Sans CJK TC Bold'), local('Taipei Sans TC Bold'), local('TaipeiSansTCBeta-Bold'), local('Microsoft JhengHei Bold'), local('Microsoft-JhengHei-Bold'), local('微軟正黑體粗體'), local('微軟正黑體'), local('Microsoft JhengHei');
             font-weight: bold;
         }
+        /* Italic (楷體) */
         @font-face {
             font-family: "Chinese-Custom";
             src: local("TW-Kai-98_1"), local("教育部標準楷書"), local("kai-pc"), local("CMEXc1"), local("Biaukai"), local("MOEDICT-IOS-KAI"), local("DFKaiShu-SB-Estd-BF"), local("全字庫正楷體"), local("Kaiti TC"), local("楷體-繁"), local('標楷體'), local('Kaiti'), local("文鼎ＰＬ新中楷"), local("cwtext 楷書"), local("HanaMinA"), local("HanaMinB"), local("HAN NOM A"), local("HAN NOM B"), local("Han Kaiti CNS"), local('AR PL KaitiM Big5'), local("cursive");
             font-style: italic;
         }
+        /* 黑體 Regular */
         @font-face {
             font-family: "Chinese-Custom-sans";
-            src: local("PingFang-TC-Regular"), local("PingFang TC regular"), local('NotoSansCJK-Regular'), local('Noto Sans CJK TC Regular');
+            src: local("PingFang-TC-Regular"), local("PingFang TC regular"), local('蘋果儷中黑'), local('Apple LiGothic Medium'), local('NotoSansCJK-Regular'), local('Noto Sans CJK TC Regular'), local('TaipeiSansTCBeta-Regular'), local('Taipei Sans TC Regular'), local('Taipei Sans TC'), local('Microsoft JhengHei'), local('微軟正黑體');
         }
         h1, h2, h3, h4, h5, h6 {
             font-family: 'Alegreya', "Chinese-Custom", sans-serif;
