@@ -1,12 +1,5 @@
 # Pandoc's Markdown Syntax
 
-## 程式碼
-
-```python
-for c in "Hello World!":
-    print(c)
-```
-
 ## 文獻引用
 
 文獻引用是透過 `.bib` 檔裡的書目資料以及 [Pandoc's Citation syntax](https://pandoc.org/MANUAL.html#citation-syntax) 達成。`.bib` 檔的產生方式可以由 Endnote, Zotero, JabRef 等書目管理軟體匯出。匯出後，將檔名命名為 `ref.bib` 取代根目錄中原本的檔案。
@@ -14,25 +7,19 @@ for c in "Hello World!":
 下方是 `.bib` 內的一篇引用資料 (一個 `.bib` 可以有很多篇)：
 
 ```bib
-@article{leung2008,
-  title = {Multicultural Experience Enhances Creativity: {{The}} When and How.},
-  volume = {63},
-  issn = {1935-990X(Electronic),0003-066X(Print)},
-  doi = {10.1037/0003-066X.63.3.169},
-  number = {3},
-  journaltitle = {American Psychologist},
-  date = {2008},
-  pages = {169-181},
-  keywords = {*Cognition,*Creativity,
-    *Culture (Anthropological),
-    *Experiences (Events),Multiculturalism},
-  author = {Leung, Angela Ka-yee and 
-    Maddux, William W. and 
-    Galinsky, Adam D. and Chiu, Chi-yue}
+@book{mihaly1990,
+	address = {New York},
+	title = {Flow : the psychology of optimal experience},
+	isbn = {0-06-016253-8},
+	language = {English},
+	publisher = {Harper \& Row},
+	author = {Csikszentmihalyi, Mihaly},
+	year = {1990},
+	keywords = {Happiness},
 }
 ```
 
-其中第一行的 `leung2008` 即為 **citation key**。Pandoc 透過 `@citekey` (e.g., `@leung2008`) 在 `.md` 檔中插入 citation。匯出論文時，Pandoc 會依據 `cite-style.csl` 的格式自動產生引用文獻。下方為一些文獻引用語法的範例，詳見 [Pandoc's Citation syntax](https://pandoc.org/MANUAL.html#citation-syntax)。
+其中第一行的 `mihaly1990` 即為 **citation key**。Pandoc 透過 `@citekey` (e.g., `@mihaly1990`) 在 `.md` 檔中插入 citation。匯出論文時，Pandoc 會依據 `cite-style.csl` 的格式自動產生引用文獻。下方為一些文獻引用語法的範例，詳見 [Pandoc's Citation syntax](https://pandoc.org/MANUAL.html#citation-syntax)。
 
 |          | 內文                                  | 輸出 (根據 `.csl` 改變)             |
 |----------|---------------------------------------|-------------------------------------|
@@ -42,15 +29,22 @@ for c in "Hello World!":
 | 隱藏作者 | `Stanford says blah [-@stanford2008]` | Stanford says blah [-@stanford2008] |
 | 其它註解 | `see @kassin2017, pp. 33-35`          | see @kassin2017, pp. 33-35          |
 
-Table: 文獻引用語法. {#tbl:citation}
+Table: 文獻引用語法 {#tbl:citation}
 
-## 文內超連結 (cross-referencing) {#sec:cross-ref}
+### Better Citation Key
+
+通常圖書館或出版商所提供的書目資料 (e.g., `.ris`, `.bib`) 的 citation key 都長得相當醜陋。透過書目管理軟體 Zotero 以及其擴充套件 [Beter BibTeX](https://retorque.re/zotero-better-bibtex) 能夠讓你自行定義 citation key 的格式。例如，模板中的 `references.bib` 皆是以「作者姓名 + 年份」(`[auth:lower][year]`) 做為 citation key 的格式。
+
+![Zotero 提供檢視與自訂 Citation Key (CiteKey) 的功能](figures/zotero.png){#fig:zotero-citekey}
+
+
+## 交叉引用 (cross-referencing) {#sec:cross-ref}
 
 ### Image
 
-![Write Figure caption here.](figures/overleaf.png){#fig:figure width=50%}
+![Write Figure caption here.](figures/overleaf.png){#fig:figure width=75%}
 
-Reference figure with @fig:figure. Define prefixes in `setup.md`.
+以 `@fig:figure` 交叉引用 @fig:figure。前綴 (e.g., `圖`/`Figure`、`表`/`Table`) 請於 `setup.md` 進行設定。
 
 
 ### Table
@@ -64,7 +58,7 @@ Reference figure with @fig:figure. Define prefixes in `setup.md`.
 
 Table: Cross-reference 語法 {#tbl:cross-ref}
 
-See @tbl:cross-ref in @sec:cross-ref for cross-reference syntax.
+關於 cross-reference 語法，見 @sec:cross-ref 的 @tbl:cross-ref。
 
 
 ### Equation
@@ -77,7 +71,18 @@ c &= 1
 $$ 
 {#eq:equation-1}
 
-Reference equations with @eq:equation-1.
+使用 `@eq:equation-1` 交叉引用 @eq:equation-1。
+
+
+### 程式碼
+
+```{#lst:codeblock1 .python caption="Python 程式碼"}
+for c in "Hello World!":
+    print(c)
+```
+
+使用 `@lst:codeblock1` 交叉引用 @lst:codeblock1。
+
 
 
 ## 複雜表格
