@@ -40,8 +40,8 @@ function create_raw_table(table_text, caption, tbl_id)
         else
             -- Default caption position 
                -- (not guaranteed to work in all cases)
-            tgt = '\\begin{tabular'
-            repl = caption .. "\n" .. tgt
+            tgt = [[ \begin{table}[] ]]
+            repl = tgt .. "\n" .. caption
         end
         return string.gsub(table_text, tgt, repl)
     elseif format == 'html' then
