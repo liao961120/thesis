@@ -501,6 +501,7 @@
 % - \setCJKsansfont{}			中文非襯字體
 % - \setCJKmonofont{}			中文等寬字體
 %
+\xeCJKsetup{AutoFallBack=true}
 
 \ifthenelse{\equal{\ntu@fontset}{default}}{
   \setmainfont{Times New Roman}[
@@ -512,6 +513,7 @@
   \setCJKmainfont{BiauKai}[
     Path = \ntu@path@cjkfont ,
     Extension = .ttf , ]
+  % \setCJKfallbackfamilyfont{\CJKrmdefault}{Noto Serif CJK TC}
 }
 
 \ifthenelse{\equal{\ntu@fontset}{template}}{
@@ -525,6 +527,7 @@
     Path = \ntu@path@cjkfont ,
     Extension = .ttf ,
     BoldFont = Kaiti-Black, ]
+    % \setCJKfallbackfamilyfont{\CJKrmdefault}{Noto Serif CJK TC}
 }
 
 \ifthenelse{\equal{\ntu@fontset}{overleaf}}{
@@ -535,6 +538,7 @@
   \setCJKmainfont[AutoFakeBold=2,AutoFakeSlant=.23]{AR PL KaitiM Big5}
   \setCJKsansfont[AutoFakeBold=2,AutoFakeSlant=.23]{AR PL KaitiM Big5}
   \setCJKmonofont[AutoFakeSlant=.25]{Noto Sans Mono CJK TC}
+  \setCJKfallbackfamilyfont{\CJKrmdefault}{Noto Serif CJK TC}
 }
 
 % [顏色設定]
