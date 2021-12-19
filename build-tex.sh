@@ -9,8 +9,7 @@ fi
 # Build LaTeX for overleaf
 ./pandoc setup.md chapters/denotations.md deps/mainmatter.md \
     chapters/0*.md deps/references.md chapters/appendix*.md \
-    -s -o main.tex \
-    --lua-filter deps/lua/rmCiteSpace.lua \
+    -s -o main_pandoc.tex \
     -F ./pandoc-crossref \
     --lua-filter deps/lua/insertTables.lua \
     --lua-filter deps/lua/pandoc-ling.lua \
@@ -26,8 +25,9 @@ fi
 
 [[ -d docs ]] || mkdir docs
 mkdir overleaf
-cp -r chapters/figures deps main.tex deps/ntuthesis.cls overleaf/
+cp -r chapters/figures deps main_pandoc.tex deps/ntuthesis.cls overleaf/
+echo '\input{main_pandoc.tex}' > overleaf/main.tex
 zip -r overleaf.zip overleaf
 mv overleaf.zip docs/
-rm -r overleaf main.tex
-cp thesis.pdf docs/  # for publish on GitHub Pages (need manual update)
+rm -r overleaf main_pandoc.tex
+# cp thesis.pdf docs/  # for publication on GitHub Pages (need manual update)
