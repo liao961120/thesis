@@ -47,7 +47,7 @@
 \newcommand{\ntu@listoftables@zh}{表目錄}
 \newcommand{\ntu@denotation@zh}{符號列表}
 \newcommand{\ntu@bibliography@zh}{參考文獻}
-\newcommand{\ntu@acknowledgement@zh}{致謝}
+\newcommand{\ntu@acknowledgement@zh}{誌謝}
 \newcommand{\ntu@abstract@zh}{摘要}
 \newcommand{\ntu@keyword@zh}{關鍵字：}
 \newcommand{\ntu@kwsymbol@zh}{、}
@@ -64,7 +64,7 @@
 \newcommand{\ntu@listoftables@en}{List of Tables}
 \newcommand{\ntu@denotation@en}{Denotation}
 \newcommand{\ntu@bibliography@en}{References}
-\newcommand{\ntu@acknowledgement@en}{Acknowledgements}
+\newcommand{\ntu@acknowledgement@en}{誌謝} % Acknowledgements
 \newcommand{\ntu@abstract@en}{Abstract}
 \newcommand{\ntu@keyword@en}{Keywords:~}
 \newcommand{\ntu@kwsymbol@en}{,~}
@@ -602,11 +602,11 @@
 % - before: 標題內容前增加文字
 % - after: 標題內容後增加文字
 %
-\titleformat{\chapter}                      % 設置 Chapter 格式
-{\centering\Huge\bfseries}                  % 定義 format
-{\ntu@titlechapter}              		    % 定義 label
+\titleformat{\chapter}[display]             % 設置 Chapter 格式
+{\centering\LARGE\bfseries}                 % 定義 format
+{\ntu@titlechapter}                      	% 定義 label
 {1em}                                       % 定義 sep
-{}                                          % before
+{\Huge}                                          % before
 
 % [圖表標題]
 %
@@ -785,8 +785,8 @@
 \renewcommand{\contentsname}{\centerline{\ntu@tableofcontents}}
 \newcommand{\maketableofcontents}{
   \cleardoublepage
-  \phantomsection
-  \addcontentsline{toc}{chapter}{\ntu@tableofcontents}
+  % \phantomsection
+  % \addcontentsline{toc}{chapter}{\ntu@tableofcontents}
   \tableofcontents
 }
 
