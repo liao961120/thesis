@@ -57,11 +57,8 @@ VSCode 的擴充套件 [Markdown Preview Enhanced](https://marketplace.visualstu
 
 ```markdown
 ---
-...
 language     : "chinese"  # chinese | english
-...
 acknowledgement-in-en: false  # true for english
-...
 ---
 ```
 
