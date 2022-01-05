@@ -378,12 +378,9 @@ div.output {
 <h3 id="論文語言設定">論文語言設定</h3>
 <p>論文可以使用中文或是英文撰寫。相關的設定在 <code>setup.md</code> 開頭的 yaml。若 <code>acknowledgement-in-en</code> 為 true, 則論文中的標題會是 “Acknowledgement”；反之，則為「致謝辭」。</p>
 <div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">...</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>language     : &quot;chinese&quot;  # chinese | english</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>acknowledgement-in-en: false  # true for english</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>...</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>---</span></code></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="an">language     :</span><span class="co"> &quot;chinese&quot;  # chinese | english</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="an">acknowledgement-in-en:</span><span class="co"> false  # true for english</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code></pre></div>
 <p>此外，由於 Pandoc 處理 in-text citation 的預設行為可能不適合中文論文 (多出不必要的空白)，可至 <code>build-html.sh</code> 以及 <code>build-tex.sh</code> 中，將下方這行移除：</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 其它內容...</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">--lua-filter</span> deps/lua/rmCiteSpace.lua <span class="dt">\</span></span>
