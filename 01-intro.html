@@ -265,6 +265,9 @@ blockquote p {
     text-align: left;
     font-style: italic;
 }
+table thead {
+    text-align: left;
+}
 table:not(.linguistic-example) {
     display: table;
     width: 88%;
@@ -329,18 +332,14 @@ body{
     font-family: FreeSerif, 'Times New Roman', Libertine, 'PT Serif', "Chinese-Custom", Times, serif;
 }
 
-.js-toc {
-    position: fixed;
-    right: 0;
-    top: 0;
-    margin-top: 50px;
-    margin-right: 1.5em;
-    width: 17.5%;
-    min-width: 200px;
+
+div.output {
+    /* Jupyter notebook output */
+    color: gray;
 }
 </style>
 <link rel="stylesheet" href="custom.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+
 
 </head>
 
@@ -376,28 +375,41 @@ body{
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PandocCiter.DefaultBib&quot;</span><span class="fu">:</span> <span class="st">&quot;references.bib&quot;</span><span class="fu">,</span></span>
 <span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;PandocCiter.UseDefaultBib&quot;</span><span class="fu">:</span> <span class="kw">true</span></span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre></div>
+<h3 id="論文語言設定">論文語言設定</h3>
+<p>論文可以使用中文或是英文撰寫。相關的設定在 <code>setup.md</code> 開頭的 yaml。若 <code>acknowledgement-in-en</code> 為 true, 則論文中的標題會是 “Acknowledgement”；反之，則為「致謝辭」。</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode markdown"><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">...</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>language     : &quot;chinese&quot;  # chinese | english</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>acknowledgement-in-en: false  # true for english</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>...</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>---</span></code></pre></div>
+<p>此外，由於 Pandoc 處理 in-text citation 的預設行為可能不適合中文論文 (多出不必要的空白)，可至 <code>build-html.sh</code> 以及 <code>build-tex.sh</code> 中，將下方這行移除：</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 其它內容...</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="ex">--lua-filter</span> deps/lua/rmCiteSpace.lua <span class="dt">\</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a># 其它內容...</span></code></pre></div>
 <h2 id="使用">使用</h2>
 <p>由於 LaTeX (<a href="https://www.tug.org/texlive">TeX Live</a> 或 <a href="https://miktex.org">MikTeX</a>) 的安裝十分令人頭痛，而且即使安裝完成，後續生成 PDF 的過程仍會常常出錯。為了儘量避開這些問題，此專案在設計上結合 <a href="https://www.overleaf.com">Overleaf</a>，讓使用者能將輸出的 <code>.tex</code> 檔透過 (免費) 網路服務輸出成 PDF 檔。當然，若使用者個人電腦上已有 LaTeX，也可直接在電腦上輸出 PDF。此外，這裡亦提供一個簡約的 HTML 輸出格式，目的是方便在撰寫時預覽論文 (因為 LaTeX 的輸出相當耗時)。</p>
 <h3 id="論文撰寫">論文撰寫</h3>
 <p>下方為 Repo 的結構，基本上使用者僅需要更動兩個地方—<code>setup.md</code> 以及 <code>chapters/</code> 裡的檔案。其它部份若不清楚是什麼可以不用理會，也不要去刪除它們。</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> setup.md               <span class="co"># 論文參數設定 (標題、作者、指導教授、摘要、謝辭...)</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> build-html.sh          <span class="co"># 輸出 HTML</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> build-tex.sh           <span class="co"># 輸出 overleaf.zip (可上傳至 Overleaf compile)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs/                  <span class="co"># 論文輸出</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> chapters/              <span class="co"># 論文內容</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 01-intro.md           <span class="co"># 第一章 (命名規則：{##}-{title}.md)</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 02-pandocSyntax.md    <span class="co"># 第二章 (命名規則：{##}-{title}.md)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-A.md         <span class="co"># 附錄 A (命名規則：appendix-{編號}.md)</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-B.md         <span class="co"># 附錄 B (命名規則：appendix-{編號}.md)</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── denotations.md        <span class="co"># 符號列表 (若用不到，請刪除檔案內容，但勿刪檔案本身)</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── references.bib        <span class="co"># 引用書目</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.tex            <span class="co"># 複雜表格定義 (LaTeX 語法)</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.html           <span class="co"># 複雜表格定義 (HTML 語法)</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> └── figures/              <span class="co"># 圖片存放處 (勿刪除此資料夾)</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> deps/                  <span class="co"># 論文模板、程式輸出相依檔案</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a> <span class="ex">  </span> ├── ...</span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> citation-style.csl <span class="co"># 引用格式 (至 zotero.org/styles 下載，模板使用 APA6)</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode bash"><code class="sourceCode bash"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ex">/</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> setup.md               <span class="co"># 論文參數設定 (標題、作者、指導教授、摘要、謝辭...)</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> build-html.sh          <span class="co"># 輸出 HTML</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> build-tex.sh           <span class="co"># 輸出 overleaf.zip (可上傳至 Overleaf compile)</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> docs/                  <span class="co"># 論文輸出</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ex">├──</span> chapters/              <span class="co"># 論文內容</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 01-intro.md           <span class="co"># 第一章 (命名規則：{##}-{title}.md)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── 02-pandocSyntax.md    <span class="co"># 第二章 (命名規則：{##}-{title}.md)</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-A.md         <span class="co"># 附錄 A (命名規則：appendix-{編號}.md)</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-B.md         <span class="co"># 附錄 B (命名規則：appendix-{編號}.md)</span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── denotations.md        <span class="co"># 符號列表 (若用不到，請刪除檔案內容，但勿刪檔案本身)</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── references.bib        <span class="co"># 引用書目</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.tex            <span class="co"># 複雜表格定義 (LaTeX 語法)</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.html           <span class="co"># 複雜表格定義 (HTML 語法)</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> └── figures/              <span class="co"># 圖片存放處 (勿刪除此資料夾)</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="ex">└──</span> deps/                  <span class="co"># 論文模板、程式輸出相依檔案</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a> <span class="ex">  </span> ├── ...</span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>    <span class="ex">└──</span> citation-style.csl <span class="co"># 引用格式 (至 zotero.org/styles 下載，模板使用 APA6)</span></span></code></pre></div>
 
 <div id="tocChap">
     <ul class="chapter-toc">
@@ -580,7 +592,7 @@ body{
     // Insert title for references
     let ref = document.querySelector("#refs");
     if (ref != null) {
-        let title = document.createElement("h1");
+        let title = document.createElement("h2");
         title.innerText = "References";
         title.className = "unnumbered";
         title.id = "chapter-references";
@@ -593,7 +605,7 @@ body{
         // Where to grab the headings to build the table of contents.
         contentSelector: 'body',
         // Which headings to grab inside of the contentSelector element.
-        headingSelector: 'h1, h2, h3',
+        headingSelector: 'h2',
         ignoreSelector: 'h1.title',
         collapseDepth: '6',
         // // For headings inside relative or absolute positioned containers within content.
@@ -601,9 +613,27 @@ body{
     });
 </script>
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
 <style>
-    @media only screen and (max-width: 1000px) {
+    .js-toc {
+        font-size: 0.85em;
+        position: fixed;
+        right: 0;
+        top: 0;
+        margin-top: 50px;
+        margin-right: 0;
+        width: 20%;
+        min-width: 200px;
+    }
+    .toc-list > li {
+        padding: 0.35em 0;
+        margin: 0;
+        
+    }
+    .toc-list > li a {
+        text-decoration: none;
+    }
+    @media only screen and (max-width: 1050px) {
         .js-toc,
         #tocChap ul {
             display: none !important;

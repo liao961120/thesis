@@ -202,6 +202,9 @@ blockquote p {
     text-align: left;
     font-style: italic;
 }
+table thead {
+    text-align: left;
+}
 table:not(.linguistic-example) {
     display: table;
     width: 88%;
@@ -266,18 +269,14 @@ body{
     font-family: FreeSerif, 'Times New Roman', Libertine, 'PT Serif', "Chinese-Custom", Times, serif;
 }
 
-.js-toc {
-    position: fixed;
-    right: 0;
-    top: 0;
-    margin-top: 50px;
-    margin-right: 1.5em;
-    width: 17.5%;
-    min-width: 200px;
+
+div.output {
+    /* Jupyter notebook output */
+    color: gray;
 }
 </style>
 <link rel="stylesheet" href="custom.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+
 
 </head>
 
@@ -468,7 +467,7 @@ body{
     // Insert title for references
     let ref = document.querySelector("#refs");
     if (ref != null) {
-        let title = document.createElement("h1");
+        let title = document.createElement("h2");
         title.innerText = "References";
         title.className = "unnumbered";
         title.id = "chapter-references";
@@ -481,7 +480,7 @@ body{
         // Where to grab the headings to build the table of contents.
         contentSelector: 'body',
         // Which headings to grab inside of the contentSelector element.
-        headingSelector: 'h1, h2, h3',
+        headingSelector: 'h2',
         ignoreSelector: 'h1.title',
         collapseDepth: '6',
         // // For headings inside relative or absolute positioned containers within content.
@@ -489,9 +488,27 @@ body{
     });
 </script>
 
-
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
 <style>
-    @media only screen and (max-width: 1000px) {
+    .js-toc {
+        font-size: 0.85em;
+        position: fixed;
+        right: 0;
+        top: 0;
+        margin-top: 50px;
+        margin-right: 0;
+        width: 20%;
+        min-width: 200px;
+    }
+    .toc-list > li {
+        padding: 0.35em 0;
+        margin: 0;
+        
+    }
+    .toc-list > li a {
+        text-decoration: none;
+    }
+    @media only screen and (max-width: 1050px) {
         .js-toc,
         #tocChap ul {
             display: none !important;
