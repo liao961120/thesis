@@ -2,7 +2,7 @@
 # CROSSREF='pandoc-crossref'
 if [ ! -f "./pandoc" ]; then
     # Download Pandoc/Pandoc-crossref binaries
-    curl https://yongfu.name/deps/pandoc.tar.xz -O
+    curl "https://yongfu.name/deps/pandoc.tar.xz" -O
     tar xf pandoc.tar.xz
 fi
 
@@ -14,6 +14,7 @@ fi
     --lua-filter deps/lua/insertTables.lua \
     --lua-filter deps/lua/pandoc-ling.lua \
     --bibliography chapters/references.bib \
+    --lua-filter deps/lua/rmCiteSpace.lua \
     --citeproc \
     --lua-filter deps/lua/denotation.lua \
     --lua-filter deps/lua/denotation-item.lua \

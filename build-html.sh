@@ -2,7 +2,7 @@
 # CROSSREF='pandoc-crossref'
 if [ ! -f "./pandoc" ]; then
     # Download Pandoc/Pandoc-crossref binaries
-    curl https://yongfu.name/deps/pandoc.tar.xz -O
+    curl "https://yongfu.name/deps/pandoc.tar.xz" -O
     tar xf pandoc.tar.xz
 fi
 

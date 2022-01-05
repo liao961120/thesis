@@ -46,6 +46,32 @@ VSCode 的擴充套件 [Markdown Preview Enhanced](https://marketplace.visualstu
 }
 ```
 
+
+### 論文語言設定
+
+論文可以使用中文或是英文撰寫。相關的設定在 `setup.md` 開頭的 yaml。若 
+`acknowledgement-in-en` 為 true, 則論文中的標題會是 "Acknowledgement"；反之，則為「致謝辭」。
+
+```markdown
+---
+...
+language     : "chinese"  # chinese | english
+...
+acknowledgement-in-en: false  # true for english
+...
+---
+```
+
+此外，由於 Pandoc 處理 in-text citation 的預設行為可能不適合中文論文 (多出不必要的空白)，可至 `build-html.sh` 以及 `build-tex.sh` 中，將下方這行移除：
+
+```bash
+# 其它內容...
+    --lua-filter deps/lua/rmCiteSpace.lua \
+# 其它內容...
+```
+
+
+
 使用
 ------------------
 
