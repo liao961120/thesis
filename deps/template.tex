@@ -51,9 +51,6 @@
 \usepackage{array}                      % 調整表格高度
 \usepackage{longtable}                  % 支援跨頁長表格
 \usepackage{paralist}                   % 列表環境
-% https://tex.stackexchange.com/questions/25369/how-to-rotate-a-table
-\usepackage{adjustbox}                  % 旋轉表格
-
 
 %%%%%%%%%%%% Pandoc Preamble %%%%%%%%%%%%%%
 \usepackage{lmodern}
@@ -96,7 +93,10 @@
 \newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
 \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
 % Add ',fontsize=\small' for more characters per line
-\newenvironment{Shaded}{}{}
+% \newenvironment{Shaded}{}{}
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
 \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
 \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
 \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
@@ -212,11 +212,12 @@ $endif$
 \let\oldShaded=\Shaded
 \let\endoldShaded=\endShaded
 \renewenvironment{Shaded}{
-    \begin{spacing}{1.1}\begin{oldShaded}
+    \begin{spacing}{1}\begin{oldShaded}
   }
   {
   \end{oldShaded}
   \end{spacing}
+  \vspace{0.1cm}
   }
 \let\oldLongTable=\longtable
   \let\endoldLongTable=\endlongtable
@@ -254,9 +255,30 @@ $endif$
 % For strikeout in LaTex
 \usepackage[normalem]{ulem}
 \pdfstringdefDisableCommands{\renewcommand{\sout}{}}
+\usepackage{paralist}  % Compact list
 %%%%%%%%%%%%%%%%%%%%%%%%%% END Pandoc Preamble %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%% Change verbatim env: linestrech, before/after vspace, text color
+\makeatletter
+  \preto{\@verbatim}{\topsep=0pt \partopsep=5pt }
+  \renewcommand\verbatim@font{\normalfont\ttfamily\color{gray}}
+\makeatother
+\BeforeBeginEnvironment{verbatim}{
+% \noindent
+% \texttt{\textbf{Output}}
+\def\baselinestretch{1}
+}
+
 \begin{document}
+
+% Compact list
+\renewenvironment{itemize}[1]{
+\vspace{0.2cm} \begin{compactitem}#1}
+{\end{compactitem} \vspace{0.5cm}}
+\renewenvironment{enumerate}[1]{
+\vspace{0.2cm}\begin{compactenum}#1}
+{\end{compactenum} \vspace{0.5cm}}
+
 
 $test-markdown$
 
