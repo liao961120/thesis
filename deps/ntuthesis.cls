@@ -47,7 +47,7 @@
 \newcommand{\ntu@listoftables@zh}{表目錄}
 \newcommand{\ntu@denotation@zh}{符號列表}
 \newcommand{\ntu@bibliography@zh}{參考文獻}
-\newcommand{\ntu@acknowledgement@zh}{誌謝}
+\newcommand{\ntu@acknowledgement@zh}{致謝辭}
 \newcommand{\ntu@abstract@zh}{摘要}
 \newcommand{\ntu@keyword@zh}{關鍵字：}
 \newcommand{\ntu@kwsymbol@zh}{、}
@@ -58,13 +58,13 @@
 
 % 變數: 英文翻譯
 % Variables: Translation (English)
-\newcommand{\ntu@verificationletter@en}{Verification Letter from the Oral Examination Committee}
+\newcommand{\ntu@verificationletter@en}{口試委員審定書} % Verification Letter from the Oral Examination Committee
 \newcommand{\ntu@tableofcontents@en}{Contents}
 \newcommand{\ntu@listoffigures@en}{List of Figures}
 \newcommand{\ntu@listoftables@en}{List of Tables}
 \newcommand{\ntu@denotation@en}{Denotation}
 \newcommand{\ntu@bibliography@en}{References}
-\newcommand{\ntu@acknowledgement@en}{誌謝} % Acknowledgements
+\newcommand{\ntu@acknowledgement@en}{致謝辭} % Acknowledgements
 \newcommand{\ntu@abstract@en}{Abstract}
 \newcommand{\ntu@keyword@en}{Keywords:~}
 \newcommand{\ntu@kwsymbol@en}{,~}
@@ -470,6 +470,7 @@
 \RequirePackage{fancyhdr}
 \RequirePackage{setspace}
 \RequirePackage{graphicx}
+\RequirePackage[graphicx]{realboxes}   % rotating tables
 \RequirePackage{tikz}
 \RequirePackage{eso-pic}
 \RequirePackage{pdfpages}
@@ -534,11 +535,15 @@
   % FreeSerif is a Times New Roman clone with wider coverage of glyphs
   \setmainfont{FreeSerif}    
   \setsansfont{Droid Sans}
-  \setmonofont{FreeMono}
+  \setmonofont{Source Code Pro}
   \setCJKmainfont[AutoFakeBold=2,AutoFakeSlant=.23]{AR PL KaitiM Big5}
   \setCJKsansfont[AutoFakeBold=2,AutoFakeSlant=.23]{AR PL KaitiM Big5}
   \setCJKmonofont[AutoFakeSlant=.25]{Noto Sans Mono CJK TC}
   \setCJKfallbackfamilyfont{\CJKrmdefault}{Noto Serif CJK TC}
+  \newfontfamily\ipa{Doulos SIL} % Font for IPA symbols
+  \DeclareTextFontCommand{\ipatext}{\ipa}
+%   \newfontfamily\hanaminb[Path=./]{HanaMinB} % Font for IPA symbols
+%   \DeclareTextFontCommand{\extB}{\hanaminb}
 }
 
 % [顏色設定]
@@ -785,8 +790,8 @@
 \renewcommand{\contentsname}{\centerline{\ntu@tableofcontents}}
 \newcommand{\maketableofcontents}{
   \cleardoublepage
-  % \phantomsection
-  % \addcontentsline{toc}{chapter}{\ntu@tableofcontents}
+   \phantomsection
+   \addcontentsline{toc}{chapter}{\ntu@tableofcontents}
   \tableofcontents
 }
 
@@ -861,7 +866,7 @@
   \setlength{\topsep}{0pt}                        % 標籤與上文距離
 }}{\end{list}}
 
-% [誌謝環境]
+% [致謝辭環境]
 % Acknowledgement Environment
 %
 \newenvironment{acknowledgement}{
