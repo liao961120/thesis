@@ -48,8 +48,8 @@
         $for(author)$
         <p class="author">$author$</p>
         $endfor$
-        $if(date)$
-        <p class="date">$date$</p>
+        $if(html-date)$
+        <p class="date">$html-date$</p>
         $endif$
     </header>
     $endif$
@@ -84,7 +84,7 @@
     $if(acknowledgement-in-en)$
     <h1 id="acknowledgement">Acknowledgement</h1>
     $else$
-    <h1 id="acknowledgement">謝辭</h1>
+    <h1 id="acknowledgement">致謝辭</h1>
     $endif$
     $acknowledgement$
     $endif$
