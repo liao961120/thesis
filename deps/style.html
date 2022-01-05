@@ -51,6 +51,9 @@ blockquote p {
     text-align: left;
     font-style: italic;
 }
+table thead {
+    text-align: left;
+}
 table:not(.linguistic-example) {
     display: table;
     width: 88%;
@@ -115,15 +118,11 @@ body{
     font-family: FreeSerif, 'Times New Roman', Libertine, 'PT Serif', "Chinese-Custom", Times, serif;
 }
 
-.js-toc {
-    position: fixed;
-    right: 0;
-    top: 0;
-    margin-top: 50px;
-    margin-right: 1.5em;
-    width: 17.5%;
-    min-width: 200px;
+
+div.output {
+    /* Jupyter notebook output */
+    color: gray;
 }
 </style>
 <link rel="stylesheet" href="custom.css">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tocbot/4.11.1/tocbot.css">
+
