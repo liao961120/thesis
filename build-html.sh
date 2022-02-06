@@ -33,6 +33,7 @@ echo "${tocChaptmp//ANCHOR.TOCCHAP/$chaptoc}" > "tocChapTmp.html"
 
 # Build index page
 ./pandoc setup.md chapters/denotations.md -o docs/index.html \
+    --from markdown+superscript+subscript \
     --template deps/main.html5 \
     -H deps/style.html \
     -A tocChapTmp.html \
@@ -49,6 +50,7 @@ for IN in chapters/*.md; do
     OUT=${IN/%md/html}
     fname=$(basename $OUT)
     ./pandoc setup.md $IN -o docs/$fname \
+        --from markdown+superscript+subscript \
         --template deps/chapter.html5 \
         -H deps/style.html \
         -A tocChapTmp.html \

@@ -9,6 +9,7 @@ fi
 # Build LaTeX for overleaf
 ./pandoc setup.md chapters/denotations.md deps/mainmatter.md \
     chapters/0*.md deps/references.md chapters/appendix*.md \
+    --from markdown+superscript+subscript \
     -s -o main_pandoc.tex \
     -F ./pandoc-crossref \
     --lua-filter deps/lua/insertTables.lua \
