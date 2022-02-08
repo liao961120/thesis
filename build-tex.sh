@@ -28,6 +28,7 @@ fi
 [[ -d docs ]] || mkdir docs
 mkdir overleaf
 cp -r chapters/figures deps main_pandoc.tex deps/ntuthesis.cls overleaf/
+[[ -f ./口試委員審定書.pdf ]] && cp ./口試委員審定書.pdf overleaf/
 echo '\input{main_pandoc.tex}' > overleaf/main.tex
 zip -r overleaf.zip overleaf
 mv overleaf.zip docs/

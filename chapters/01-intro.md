@@ -91,7 +91,7 @@ acknowledgement-in-en: false  # true for english
 │   ├── appendix-A.md         # 附錄 A (命名規則：appendix-{編號}.md)
 │   ├── appendix-B.md         # 附錄 B (命名規則：appendix-{編號}.md)
 │   ├── denotations.md        # 符號列表 (若用不到，請刪除檔案內容，但勿刪檔案本身)
-│   ├── references.bib        # 引用書目
+│   ├── references.yaml       # 引用書目 (CSL YAML)
 │   ├── tables.tex            # 複雜表格定義 (LaTeX 語法)
 │   ├── tables.html           # 複雜表格定義 (HTML 語法)
 │   └── figures/              # 圖片存放處 (勿刪除此資料夾)

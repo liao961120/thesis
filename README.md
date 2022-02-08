@@ -93,7 +93,7 @@ acknowledgement-in-en: false  # true for english
 │   ├── appendix-A.md         # 附錄 A (命名規則：appendix-{編碼}.md)
 │   ├── appendix-B.md         # 附錄 B (命名規則：appendix-{編碼}.md)
 │   ├── denotations.md        # 符號列表 (若無需用到，請將檔案裡的內容刪除，但勿刪除此檔案)
-│   ├── references.bib        # 引用書目
+│   ├── references.yaml       # 引用書目 (CSL YAML)
 │   └── figures/              # 圖片存放處 (勿刪除此資料夾)
 └── deps/                  # 論文模板、程式輸出相依檔案
     ├── ...
