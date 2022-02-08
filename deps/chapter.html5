@@ -126,6 +126,9 @@ $endfor$
     .unnumbered::before {
       display: none;
     }
+    .appendix.unnumbered::before {
+      display: block;
+    }
 
     /* Heading styles */
     h1, h2 {
