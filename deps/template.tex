@@ -285,7 +285,10 @@ $test-markdown$
 % 封面與口試審定
 % Cover and Verification Letter
 \makecover                          % 論文封面（Cover）
-\makeverification                   % 口試委員審定書（Verification Letter）
+% 口試委員審定書（Verification Letter）
+\IfFileExists{./口試委員審定書.pdf}{
+    \includepdf[angle=0]{./口試委員審定書.pdf}
+    }{\makeverification}
 
 %%%%%%%%%%%%%%%%% Acknowledgement %%%%%%%%%%%%%%%%% 
 \begin{acknowledgement}{$if(acknowledgement-in-en)$\enstretch$else$\zhstretch$endif$
