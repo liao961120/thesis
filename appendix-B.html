@@ -282,7 +282,7 @@ div.output {
 
 <body>
 
-<h1 class="appendix" name="B" id="analysis">Analysis</h1>
+<h1 class="appendix unnumbered" name="B" id="sec:appendix-b">Analysis</h1>
 <p>This is content in appendix B</p>
 <h2 id="introduction">Introduction</h2>
 
@@ -603,6 +603,9 @@ div.output {
     }
     .unnumbered::before {
       display: none;
+    }
+    .appendix.unnumbered::before {
+      display: block;
     }
 
     /* Heading styles */

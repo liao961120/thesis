@@ -282,7 +282,7 @@ div.output {
 
 <body>
 
-<h1 class="appendix" name="A" id="numerical-solution">Numerical Solution</h1>
+<h1 class="appendix unnumbered" name="A" id="sec:appendix-a">Numerical Solution</h1>
 <p>This is content in appendix A</p>
 
 <div id="tocChap">
@@ -602,6 +602,9 @@ div.output {
     }
     .unnumbered::before {
       display: none;
+    }
+    .appendix.unnumbered::before {
+      display: block;
     }
 
     /* Heading styles */

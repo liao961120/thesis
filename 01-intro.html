@@ -400,7 +400,7 @@ div.output {
 <span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-A.md         <span class="co"># 附錄 A (命名規則：appendix-{編號}.md)</span></span>
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── appendix-B.md         <span class="co"># 附錄 B (命名規則：appendix-{編號}.md)</span></span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> ├── denotations.md        <span class="co"># 符號列表 (若用不到，請刪除檔案內容，但勿刪檔案本身)</span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── references.bib        <span class="co"># 引用書目</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── references.yaml       <span class="co"># 引用書目 (CSL YAML)</span></span>
 <span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.tex            <span class="co"># 複雜表格定義 (LaTeX 語法)</span></span>
 <span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="ex">│</span>   ├── tables.html           <span class="co"># 複雜表格定義 (HTML 語法)</span></span>
 <span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="ex">│  </span> └── figures/              <span class="co"># 圖片存放處 (勿刪除此資料夾)</span></span>
@@ -725,6 +725,9 @@ div.output {
     }
     .unnumbered::before {
       display: none;
+    }
+    .appendix.unnumbered::before {
+      display: block;
     }
 
     /* Heading styles */
