@@ -12,4 +12,4 @@ pandoc.tar.xz
 *.fls
 thesisform.pdf.pdf
 docs/
-info.html
+/info.html
