@@ -20,12 +20,27 @@
 
 ### 個人電腦
 
-如果想在本機預覽 HTML 輸出結果，需安裝 [Pandoc](https://github.com/jgm/pandoc/releases) 2.14 (或更新) 以及 [pandoc-crossref](https://github.com/lierdakil/pandoc-crossref/releases)。安裝之後，至 Terminal 執行下方指令 (Windows 系統因為沒有 Shell，建議可以安裝 [Git Bash](https://gitforwindows.org)):
+#### Linux & Mac
+
+如果想在本機預覽 HTML 輸出結果，需安裝 [Pandoc](https://github.com/jgm/pandoc/releases) 2.14 (或更新) 以及 [pandoc-crossref](https://github.com/lierdakil/pandoc-crossref/releases)。安裝之後，至 Terminal 執行下方指令:
 
 ```bash
 bash build-html.sh  # 輸出 docs/index.html
 bash build-tex.sh   # 輸出 docs/overleaf.zip，可上傳至 Overleaf 或是自己輸出成 PDF
 ```
+
+
+#### Windows
+
+Windows 使用者將此 repo clone 至本地端後，下載 
+[`win-bash.zip`](https://drive.google.com/file/d/1o_IrtHEZqF-kp5JrNQi01lgu7ivMhWDV)
+。解壓縮後，將 `win-bash/` 置於 repo 的根目錄，打開 `cmd` 或 `powershell` 執行:
+
+```powershell
+.\win-bash\PortableGit\bin\bash.exe win-build-html.sh
+.\win-bash\PortableGit\bin\bash.exe win-build-tex.sh
+```
+
 
 ### 透過 VSCode 預覽 Pandoc
 
