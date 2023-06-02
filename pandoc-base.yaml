@@ -1,0 +1,21 @@
+from: markdown+autolink_bare_uris+rebase_relative_paths
+standalone: true
+
+# for pandoc-crossref
+# number-sections: true
+top-level-division: chapter
+
+csl: deps/citation-style.csl
+metadata:
+  bibliography: chapters/references.bib
+
+filters:
+  - deps/lua/rmCiteSpace.lua
+  - ./pandoc-crossref
+  - deps/lua/insertTables.lua
+  - deps/lua/pandoc-ling.lua
+  - citeproc
+  - deps/lua/denotation.lua
+  - deps/lua/denotation-item.lua
+  - deps/lua/reference-title.lua
+  - deps/lua/appendix.lua

@@ -1,7 +1,12 @@
 lang = nil
 
 function Meta(m)
-  lang = pandoc.utils.stringify(m.language)
+  lang = m.language
+  if lang == nil then
+    lang = ''
+  else
+    lang = pandoc.utils.stringify(lang)
+  end
   return m
 end
 
