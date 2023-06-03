@@ -33,7 +33,7 @@ echo "${tocChaptmp//ANCHOR.TOCCHAP/$chaptoc}" > "tocChapTmp.html"
 
 # Build index page
 ./pandoc setup.md chapters/denotations.md -o docs/index.html \
-    --from markdown+superscript+subscript \
+    --from markdown \
     --template deps/main.html5 \
     -H deps/style.html \
     -A tocChapTmp.html \
@@ -49,20 +49,13 @@ for IN in chapters/*.md; do
     
     OUT=${IN/%md/html}
     fname=$(basename $OUT)
+    echo "Writing $fname..."
     ./pandoc setup.md $IN -o docs/$fname \
-        --from markdown+superscript+subscript \
+        --defaults pandoc-base \
         --template deps/chapter.html5 \
         -H deps/style.html \
         -A tocChapTmp.html \
         -A deps/after-body.html \
-        --lua-filter deps/lua/rmCiteSpace.lua \
-        -F ./pandoc-crossref \
-        --lua-filter deps/lua/insertTables.lua \
-        --lua-filter deps/lua/pandoc-ling.lua \
-        --lua-filter deps/lua/reference-title.lua \
-        --bibliography chapters/references.bib \
-        --citeproc \
-        --csl deps/citation-style.csl \
         --mathjax
 done
 

@@ -1,0 +1,14 @@
+input-files:
+  - setup.md
+  - chapters/denotations.md
+  - deps/mainmatter.md
+  - chapters/01-intro.md
+  - chapters/02-pandocSyntax.md
+  - deps/references.md
+  - chapters/appendix-A.md
+  - chapters/appendix-B.md
+
+template: deps/template.tex
+#output-file: main_pandoc.tex
+
+listings: false

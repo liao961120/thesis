@@ -1,7 +1,8 @@
 --[[
 pandoc-linguex: make interlinear glossing with pandoc
 
-Copyright © 2021 Michael Cysouw <cysouw@mac.com>
+Version 1.6
+Copyright © 2021, 2022 Michael Cysouw <cysouw@mac.com>
 
 Permission to use, copy, modify, and/or distribute this software for any
 purpose with or without fee is hereby granted, provided that the above
@@ -36,6 +37,7 @@ local rev_indexRef = {} -- "reversed" indexRef, i.e. key/value: refID/exID = ord
 ------------------------------------
 
 local formatGloss = false -- format interlinear examples
+local samePage = true -- keep example on one page in Latex
 local xrefSuffixSep = " " -- &nbsp; separator to be inserted after number in example references
 local restartAtChapter = false -- restart numbering at highest header without adding local chapternumbers
 local addChapterNumber = false -- add chapternumbers to counting and restart at highest header
@@ -47,6 +49,9 @@ local documentclass = "article"
 function getUserSettings (meta)
   if meta.formatGloss ~= nil then
     formatGloss = meta.formatGloss
+  end
+  if meta.samePage ~= nil then
+    samePage = meta.samePage
   end
   if meta.noFormat ~= nil then
     noFormat = meta.noFormat
@@ -92,46 +97,45 @@ function addFormatting (meta)
     local css = [[
 <!-- CSS added by lua-filter 'pandoc-ling' -->
 <style>
-.linguistic-example { 
-  margin: 0; 
+.linguistic-example {
+  margin: 0;
 }
-.linguistic-example caption { 
-  margin-bottom: 0; 
+.linguistic-example caption {
+  margin-bottom: 0;
 }
-.linguistic-example tbody { 
-  border-top: none; 
+.linguistic-example tbody {
+  border-top: none;
   border-bottom: none;
 }
 .linguistic-example-preamble {
   height: 1em;
-  vertical-align: top; 
+  vertical-align: top;
 }
 .linguistic-example td {
   padding-left: 0;
 }
-.linguistic-example-content { 
-  vertical-align: top;  
+.linguistic-example-content {
+  vertical-align: top;
 }
 .linguistic-example-label {
   vertical-align: top;
 }
-.linguistic-example-judgement { 
-  vertical-align: top; 
+.linguistic-example-judgement {
+  vertical-align: top;
   padding-right: 2px;
 }
 </style>
       ]]
-    tmp[#tmp+1] = pandoc.MetaBlocks(pandoc.RawBlock("html", css))
+    tmp[#tmp+1] = pandoc.RawBlock("html", css)
     meta['header-includes'] = tmp
   end
-  
+
   local function add (s)
-    -- tmp[#tmp+1] = pandoc.MetaBlocks(pandoc.RawBlock("tex", s))
     tmp[#tmp+1] = pandoc.RawBlock("tex", s)
   end
-  
+
   if FORMAT:match "latex" or FORMAT:match "beamer" then
-  
+
     if latexPackage == "linguex" then
       add("\\usepackage{linguex}")
       -- no brackets
@@ -208,11 +212,12 @@ end
 
 -- will be removed again once the chapters are counted
 function addDivToHeader (head)
-  if  head.tag == "Header" 
-      and head.level == 1 
+  if  head.tag == "Header"
+      and head.level == 1
       and head.classes[1] ~= "unnumbered"
   then
-    return pandoc.Div(head, pandoc.Attr(nil, {"restart"}))
+    head.attr = {id = head.identifier, class = "restart"}
+    return pandoc.Div(head)
   end
 end
 
@@ -224,9 +229,10 @@ function processDiv (div)
 
   -- keep track of chapters (header == 1)
   -- included in this loop by trick "addDivToHeader"
-  if div.classes[1] == "restart" then
+  if div.content and div.content[1] and div.content[1].tag == "Header" and div.content[1].classes[1] == "restart"  then
     chapter = chapter + 1
     counterInChapter = 0
+    div.content[1].attr = {id = div.content[1].identifier, class = ""}
     -- remove div
     return div.content
   end
@@ -238,6 +244,11 @@ function processDiv (div)
     local saveGlobalformatGloss = formatGloss
     if div.attributes.formatGloss ~= nil then
       formatGloss = div.attributes.formatGloss
+    end
+
+    local saveGlobalsamePage = samePage
+    if div.attributes.samePage ~= nil then
+      samePage = div.attributes.samePage
     end
 
     local saveGlobalnoFormat = noFormat
@@ -259,12 +270,15 @@ function processDiv (div)
     if FORMAT:match "latex" or FORMAT:match "beamer" then
       example = texMakeExample(parsedDiv)
     else
+      example = parsedDiv.examples
       example = pandocMakeExample(parsedDiv)
-      example = pandoc.Div(example, pandoc.Attr("ex"..parsedDiv.number) )
+      example = pandoc.Div(example)
+      example.attr = {id = "ex"..parsedDiv.number}
     end
 
     -- return to global setting
     formatGloss = saveGlobalformatGloss
+    samePage = saveGlobalsamePage
     noFormat = saveGlobalnoFormat
 
     return { tmpCite, example }
@@ -280,7 +294,7 @@ function parseDiv (div)
   -- keep count of examples
   counter = counter + 1
   counterInChapter = counterInChapter + 1
-  
+
   -- format the numbering
   local number = counter
   if addChapterNumber then
@@ -288,7 +302,7 @@ function parseDiv (div)
   elseif restartAtChapter then
     number = counterInChapter
   end
-  
+
   -- make identifier for example
   local exID = ""
   if div.identifier == "" then
@@ -303,12 +317,12 @@ function parseDiv (div)
       -- or keep user-provided identifier
     exID = div.identifier
   end
-  
+
   -- keep global index of ids/numbers for crossreference
   indexEx[exID] = number
-  
+
   -- extract preamble
-  local preamble = nil	
+  local preamble = nil
   local data = div.content[1]
   if #div.content== 2 then
     preamble = pandoc.Plain(div.content[1].content)
@@ -333,12 +347,12 @@ function parseDiv (div)
     judgements[1], examples[1], kind[1] = parseExample(data)
   end
 
-  return { 	kind = kind, -- list of single/interlinear
+  return {  kind = kind, -- list of single/interlinear
             preamble = preamble,   -- preamble is Plain
             judgements = judgements, -- judgements is list of Str
             examples = examples,   -- examples is list of (list of) Plain
             number = number,       -- number, exID are bare string
-            exID = exID 
+            exID = exID
           }
 end
 
@@ -396,7 +410,7 @@ function splitSource (line)
   local splitSource = splitPara(line)
   if formatGloss then
     -- remove format and make emph throughout
-    for i=1,#splitSource do 
+    for i=1,#splitSource do
       local string = pandoc.utils.stringify(splitSource[i])
       splitSource[i] = pandoc.Plain(pandoc.Emph(string))
     end
@@ -409,13 +423,13 @@ end
 
 function splitGloss (line)
   local splitGloss = splitPara(line)
-  if formatGloss then 
+  if formatGloss then
     -- remove format and turn capital-sequences into smallcaps
-    for i=1,#splitGloss do 
+    for i=1,#splitGloss do
       local string = pandoc.utils.stringify(splitGloss[i])
       splitGloss[i] = pandoc.Plain(formatGlossLine(string))
-    end 
-  end 
+    end
+  end
   -- list of Plain
   return splitGloss
 end
@@ -440,7 +454,7 @@ end
 function formatGlossLine (s)
   -- turn uppercase in gloss into small caps
   local split = {}
-  for lower,upper in string.gmatch(s, "(.-)([%u%d][%u%d]+)") do
+  for lower,upper in string.gmatch(s, "(.-)([%u%d]+)") do
     if lower ~= "" then
       lower = pandoc.Str(lower)
       table.insert(split, lower)
@@ -448,7 +462,7 @@ function formatGlossLine (s)
     upper = pandoc.SmallCaps(pandoc.text.lower(upper))
     table.insert(split, upper)
   end
-  for leftover in string.gmatch(s, "[%u%d][%u%d]+(.-[^%u%s])$") do
+  for leftover in string.gmatch(s, "[%u%d]+(.-[^%u%s])$") do
     leftover = pandoc.Str(leftover)
     table.insert(split, leftover)
   end
@@ -467,11 +481,11 @@ function splitPara (p)
  end
  -- push down emphasis to the individual words
  if p[1].tag == "Emph" then
-  p = pandoc.walk_inline( p, { 
-    Str = function(s) return Emph(s) end 
+  p = pandoc.walk_inline( p, {
+    Str = function(s) return Emph(s) end
   } )
   end
-  -- split paragraph in subtables at Space 
+  -- split paragraph in subtables at Space
   -- to insert paragraph into pandoc.Table
   -- Is there a better way to do this in Pandoc-Lua?
   local start = 1
@@ -541,15 +555,13 @@ function pandocMakeExample (parsedDiv)
 
   -- Add example number to top left of first table
   local numberParen = pandoc.Plain( "("..parsedDiv.number..")" )
-  example[1].bodies[1].body[1][2][1].contents[1] = numberParen
-  
+  example[1].bodies[1].body[1].cells[1].contents[1] = numberParen
+
   -- set class and vertical align for noFormat
   if noFormat then
-    example[1].bodies[1].body[1][2][1].attr = 
-      pandoc.Attr(nil, {"linguistic-example-number"}, {style = "vertical-align: middle;"})
+    example[1].bodies[1].body[1].cells[1].attr = {class = "linguistic-example-number", style = "vertical-align: middle;"}
   else
-    example[1].bodies[1].body[1][2][1].attr = 
-      pandoc.Attr(nil, {"linguistic-example-number"}, {style = "vertical-align: top;"})
+    example[1].bodies[1].body[1].cells[1].attr = {class = "linguistic-example-number", style = "vertical-align: top;"}
   end
 
   return example
@@ -560,8 +572,7 @@ function pandocNoFormat (parsedDiv)
   -- make a simple 1x2 table with the whole div in the second cell
   local example = turnIntoTable({{ {}, {parsedDiv.examples[1]} } } , 2, 0)
   -- set class of content
-  example.bodies[1].body[1][2][2].attr = 
-    pandoc.Attr(nil, {"linguistic-example-content"})
+  example.bodies[1].body[1].cells[2].attr = {class = "linguistic-example-content"}
 
   return example
 end
@@ -577,7 +588,7 @@ function pandocMakeSingle (parsedDiv)
   local judgeCol = 1
   -- add judgements
   local judgement = parsedDiv.judgements[1]
-  if judgement ~= nil then 
+  if judgement ~= nil then
     rowContent = addCol ( rowContent )
     nCols = nCols + 1
     judgeCol = judgeCol + 1
@@ -601,18 +612,15 @@ function pandocMakeSingle (parsedDiv)
   local example = turnIntoTable(rowContent, nCols, judgeCol)
 
   -- set class of content
-    example.bodies[1].body[nRows][2][nCols].attr = 
-      pandoc.Attr(nil, {"linguistic-example-content"})
+  example.bodies[1].body[nRows].cells[nCols].attr = {class = "linguistic-example-content"}
   -- set class of preamble
   if preamble ~= nil then
-    example.bodies[1].body[1][2][nCols].attr = 
-      pandoc.Attr(nil, {"linguistic-example-preamble"})
+    example.bodies[1].body[1].cells[nCols].attr = {class = "linguistic-example-preamble"}
   end
   -- set class of judgment
-    if judgeCol > 1 then
-    example.bodies[1].body[nRows][2][judgeCol].attr = 
-      pandoc.Attr(nil, {"linguistic-example-judgement"})
-    end
+  if judgeCol > 1 then
+    example.bodies[1].body[nRows].cells[judgeCol].attr = {class = "linguistic-example-judgement"}
+  end
 
   return example
 end
@@ -625,15 +633,15 @@ function pandocMakeInterlinear (parsedDiv, label, forceJudge)
     selection = label
   end
   local interlinear = parsedDiv.examples[selection]
-  
+
   local header = {{ interlinear.header }}
   local headerPresent = interlinear.header.content[1] ~= nil
-  local source = interlinear.source 
+  local source = interlinear.source
   for i=1,#source do source[i] = { source[i] } end
-  local gloss =  interlinear.gloss 
+  local gloss =  interlinear.gloss
   for i=1,#gloss do gloss[i] = { gloss[i] } end
   local trans = {{ interlinear.trans  }}
-  
+
   local rowContent = { trans }
     table.insert(rowContent, 1, gloss )
     table.insert(rowContent, 1, source )
@@ -646,7 +654,7 @@ function pandocMakeInterlinear (parsedDiv, label, forceJudge)
   local judgeCol = 0
   -- add judgements
   local judgement = parsedDiv.judgements[selection]
-    if judgement ~= nil or forceJudge then 
+    if judgement ~= nil or forceJudge then
       rowContent = addCol ( rowContent )
       nCols =  nCols + 1
       judgeCol = judgeCol + 2
@@ -674,7 +682,7 @@ function pandocMakeInterlinear (parsedDiv, label, forceJudge)
   -- add number column
   rowContent = addCol(rowContent)
   nCols = nCols + 1
-  
+
   -- make into table
   local example = turnIntoTable(rowContent, nCols, judgeCol)
 
@@ -687,40 +695,33 @@ function pandocMakeInterlinear (parsedDiv, label, forceJudge)
   -- set class of preamble and extend cell
   if preamble ~= nil then
     ps = 1
-    example.bodies[1].body[1][2][2].attr = 
-      pandoc.Attr(nil, {"linguistic-example-preamble"})
-    example.bodies[1].body[1][2][2].col_span = nCols - 1
+    example.bodies[1].body[1].cells[2].attr = {class = "linguistic-example-preamble"}
+    example.bodies[1].body[1].cells[2].col_span = nCols - 1
   end
   -- set class of label
   if label ~= nil then
     ls = 1
-    example.bodies[1].body[1][2][2+ps].attr = 
-      pandoc.Attr(nil, {"linguistic-example-label"})
+    example.bodies[1].body[1].cells[2+ps].attr = {class = "linguistic-example-label"}
   end
   -- set class of header and extend cell
   if headerPresent then
     hs = 1
-    example.bodies[1].body[1+ps][2][2+ls+js].attr = 
-      pandoc.Attr(nil, {"linguistic-example-header", "linguistic-example-content"})
-    example.bodies[1].body[1+ps][2][2+ls+js].col_span = nCols-1-ls-js
+    example.bodies[1].body[1+ps].cells[2+ls+js].attr = {class =  "linguistic-example-header linguistic-example-content"}
+    example.bodies[1].body[1+ps].cells[2+ls+js].col_span = nCols-1-ls-js
   end
   -- set class of translation and extend cell
-  example.bodies[1].body[nRows][2][2+ls+js].attr = 
-    pandoc.Attr(nil, {"linguistic-example-translation", "linguistic-example-content"})
-  example.bodies[1].body[nRows][2][2+ls+js].col_span = nCols-1-ls-js
+  example.bodies[1].body[nRows].cells[2+ls+js].attr = {class = "linguistic-example-translation linguistic-example-content"}
+  example.bodies[1].body[nRows].cells[2+ls+js].col_span = nCols-1-ls-js
   -- set class of judgment
   if judgeCol > 1 then
-    example.bodies[1].body[1+hs+ps][2][2+ls].attr = 
-      pandoc.Attr(nil, {"linguistic-example-judgement"})
+    example.bodies[1].body[1+hs+ps].cells[2+ls].attr = {class = "linguistic-example-judgement"}
   end
   -- set class of source and gloss
   local ssCol = 3 + ls -- sourcestart columns
   local ssRow = 1 + hs + ps -- sourcestart row
   for i=ssCol,nCols do
-    example.bodies[1].body[ssRow][2][i].attr = 
-      pandoc.Attr(nil, {"linguistic-example-source", "linguistic-example-content"})
-    example.bodies[1].body[ssRow+1][2][i].attr = 
-      pandoc.Attr(nil, {"linguistic-example-gloss", "linguistic-example-content"})
+    example.bodies[1].body[ssRow].cells[i].attr = {class = "linguistic-example-source linguistic-example-content"}
+    example.bodies[1].body[ssRow+1].cells[i].attr = {class = "linguistic-example-gloss linguistic-example-content"}
   end
 
   return example
@@ -745,7 +746,7 @@ function pandocMakeList (parsedDiv, from, to, forceJudge)
   local judgeCol = 0
   -- add judgements
   for i=from,to do
-    if judgements[i] ~= nil or forceJudge then 
+    if judgements[i] ~= nil or forceJudge then
       rowContent = addCol ( rowContent )
       nCols =  nCols + 1
       judgeCol = judgeCol + 2
@@ -759,14 +760,15 @@ function pandocMakeList (parsedDiv, from, to, forceJudge)
   end
   -- add labels
   local labels = {}
-  for i=from,to do 
+  for i=from,to do
     local label = pandoc.Str(string.char(96+i)..".")
-    table.insert(rowContent[i], 1, { pandoc.Plain(label) })
+    table.insert(rowContent[i - from + 1], 1, { pandoc.Plain(label) })
   end
     nCols = nCols + 1
     judgeCol = judgeCol + 1
   -- add preamble
   local preamble = parsedDiv.preamble
+  if from ~= 1 then preamble = nil end
   if preamble ~= nil then
     table.insert(rowContent, 1, {{ preamble }} )
     nRows = nRows + 1
@@ -777,28 +779,24 @@ function pandocMakeList (parsedDiv, from, to, forceJudge)
 
   -- make into table
   local example = turnIntoTable(rowContent, nCols, judgeCol)
-  
+
   -- set class of content and labels
   local start = 1
   if preamble ~= nil then start = 2 end
   for i=start,nRows do
-    example.bodies[1].body[i][2][nCols].attr = 
-      pandoc.Attr(nil, {"linguistic-example-content"})
-    example.bodies[1].body[i][2][2].attr = 
-      pandoc.Attr(nil, {"linguistic-example-label"})
+    example.bodies[1].body[i].cells[nCols].attr = {class = "linguistic-example-content"}
+    example.bodies[1].body[i].cells[2].attr = {class = "linguistic-example-label"}
   end
   -- set class of judgment
   if judgeCol > 1 then
     for i=start,#example.bodies[1].body do
-      example.bodies[1].body[i][2][judgeCol].attr = 
-        pandoc.Attr(nil, {"linguistic-example-judgement"})
+      example.bodies[1].body[i].cells[judgeCol].attr = {class = "linguistic-example-judgement"}
     end
   end
   -- set class of preamble and extend cell
   if preamble ~= nil then
-    example.bodies[1].body[1][2][2].attr = 
-      pandoc.Attr(nil, {"linguistic-example-preamble"})
-    example.bodies[1].body[1][2][2].col_span = nCols - 1
+    example.bodies[1].body[1].cells[2].attr = {class = "linguistic-example-preamble"}
+    example.bodies[1].body[1].cells[2].col_span = nCols - 1
   end
 
   return example
@@ -810,32 +808,36 @@ function pandocMakeMixedList (parsedDiv)
 
   -- mix of interlinear and (groups of) single examples
   -- returns a list of tables
-  local result = {}
+  local result        = {}
+  local isInterlinear = {} -- whether result at index i is an interlinear example
   local resultCount = 1
   local from = 1
 
   -- harmonize judgementcolumn across tables, possibly forced
   local judgements = parsedDiv.judgements
   local judgeSize = 0
-  local forceJudge = false 
+  local forceJudge = false
   for i=1,#judgements do
     judgeSize = math.max(judgeSize, utf8.len(judgements[i]))
   end
-  --if judgeSize > 0 then 
+  -- if judgeSize > 0 then
     forceJudge = true
-  --end
+  -- end
 
   for i=1,#parsedDiv.kind do
     if parsedDiv.kind[i] == "interlinear" then
       local label = i
-      result[resultCount] = pandocMakeInterlinear(parsedDiv, label, forceJudge)
+      result[resultCount]        = pandocMakeInterlinear(parsedDiv, label, forceJudge)
+      isInterlinear[resultCount] = true
       resultCount = resultCount + 1
     elseif parsedDiv.kind[i] == "single" then
       if i==1 or parsedDiv.kind[i-1] ~= "single" then
         from = i
-      elseif parsedDiv.kind[i+1] ~= "single" then
+      end
+      if parsedDiv.kind[i+1] ~= "single" then
         local to = i
-        result[resultCount] = pandocMakeList(parsedDiv, from, to, forceJudge)
+        result[resultCount]        = pandocMakeList(parsedDiv, from, to, forceJudge)
+        isInterlinear[resultCount] = false
         resultCount = resultCount + 1
       end
     end
@@ -844,18 +846,27 @@ function pandocMakeMixedList (parsedDiv)
   -- rough approximations to align multiple tables
   local spaceForNumber = string.rep(" ", 2*(string.len(parsedDiv.number)+1))
   local spaceForJudge = tostring(15 + 5*judgeSize)
-  
+
   for i=1,#result do
     -- For better alignment with example number
-    -- add invisibles in first column 
+    -- add invisibles in first column
     -- not a very elegant solution, but portable across formats
-    result[i].bodies[1].body[1][2][1].contents[1] = 
+    result[i].bodies[1].body[1].cells[1].contents[1] =
       pandoc.Plain(spaceForNumber)
     -- For even better alignment, add column-width to judgement column
     -- note: this is probably not portable outside html
-    if forceJudge then
-      result[i].bodies[1].body[2][2][3].attr = 
-        pandoc.Attr(nil, { "linguistic-judgement" }, { width = spaceForJudge.."px"} )
+    if forceJudge  then
+      if isInterlinear[i] then
+        result[i].bodies[1].body[2].cells[3].attr =
+          pandoc.Attr(nil, { "linguistic-judgement" }, { width = spaceForJudge.."px"} )
+      else
+        local row = 1
+        if i == 1 and parsedDiv.preamble ~= nil then
+          row = 2
+        end
+        result[i].bodies[1].body[row].cells[3].attr =
+          pandoc.Attr(nil, { "linguistic-judgement" }, { width = spaceForJudge.."px"} )
+      end
     end
   end
   return result
@@ -876,7 +887,7 @@ function sLength (j)
   if j == nil then
     return 0
   else
-    return utf8.len(pandoc.utils.stringify(j)) 
+    return utf8.len(pandoc.utils.stringify(j))
   end
 end
 
@@ -931,7 +942,7 @@ function texCombine (separated)
   -- to align source/gloss they are separated
   -- for Latex, they have to returned to one object
   local result = pandoc.List()
-  for i=1,#separated do 
+  for i=1,#separated do
     separated[i]=separated[i].content
     table.insert(separated[i], pandoc.Space())
     result:extend(separated[i])
@@ -982,9 +993,9 @@ function texMakeExpex (parsedDiv)
   local judgements = parsedDiv.judgements
   local line, header, source, gloss, trans
 
-  if preamble == nil then 
-    preamble = pandoc.List() 
-  else 
+  if preamble == nil then
+    preamble = pandoc.List()
+  else
     preamble = preamble.content
     texEnd("\\\\", preamble)
   end
@@ -995,10 +1006,10 @@ function texMakeExpex (parsedDiv)
       judgeMax = judgements[i]
     end
   end
-  local judgeOffset = "[*="..string.gsub(pandoc.utils.stringify(judgeMax), "([#$%&_{}~^])", "\\%1").."]"
+  local judgeOffset = "[*="..string.gsub(pandoc.utils.stringify(judgeMax), "([#$%%&_{}~^])", "\\%1").."]"
 
   for i=1,#kind do
-    if judgements[i] == nil then 
+    if judgements[i] == nil then
       judgements[i] = { pandoc.RawInline("tex","") }
     elseif #kind == 1 and kind[1] == "single" then
       judgements[i] = { judgements[i] }
@@ -1020,16 +1031,20 @@ function texMakeExpex (parsedDiv)
   else
     texFront("\\pex"..judgeOffset.."<"..ID.."> ", preamble)
   end
-  texFront("\\begin{samepage}\n", preamble)
+  if samePage == true then
+    texFront("\\begin{samepage}\n", preamble)
+  else
+    texFront("", preamble)
+  end
 
   for i=1,#kind do
     if kind[i] == "single" then
 
       line = texSquashMulti(parsedDiv.examples[i])
 
-      if #kind > 1 then 
+      if #kind > 1 then
         texFront("\n  \\a ", judgements[i])
-      else 
+      else
         texFront("\n  ", judgements[i])
       end
 
@@ -1042,7 +1057,7 @@ function texMakeExpex (parsedDiv)
       source = parsedDiv.examples[i].source
       gloss  = parsedDiv.examples[i].gloss
       trans  = parsedDiv.examples[i].trans.content
-      
+
       source = texCombine(source)
       gloss  = texCombine(gloss)
 
@@ -1053,9 +1068,9 @@ function texMakeExpex (parsedDiv)
         texEnd("//", header)
       end
 
-      if #kind > 1 then 
+      if #kind > 1 then
         texEnd("\n  \\a ", preamble)
-      end 
+      end
 
       texEnd("\n  \\begingl", preamble)
       preamble:extend(header)
@@ -1073,7 +1088,11 @@ function texMakeExpex (parsedDiv)
 
     end
   end
-  texEnd("\n\\xe\n\\end{samepage}", preamble)
+  if samePage == true then
+    texEnd("\n\\xe\n\\end{samepage}", preamble)
+  else
+    texEnd("\n\\xe", preamble)
+  end
   return pandoc.Plain(preamble)
 end
 
@@ -1088,9 +1107,9 @@ function texMakeLinguex (parsedDiv)
   local judgements = parsedDiv.judgements
   local line, header, source, gloss, trans
 
-  if preamble == nil then 
-    preamble = pandoc.List() 
-  else 
+  if preamble == nil then
+    preamble = pandoc.List()
+  else
     preamble = preamble.content
     if #kind == 1 and kind[1] == "single" then
       texEnd("\\\\", preamble)
@@ -1098,7 +1117,7 @@ function texMakeLinguex (parsedDiv)
   end
 
   for i=1,#kind do
-    if judgements[i] == nil then 
+    if judgements[i] == nil then
       judgements[i] = { pandoc.RawInline("tex","") }
     else
       judgements[i] = { judgements[i] }
@@ -1108,14 +1127,18 @@ function texMakeLinguex (parsedDiv)
   end
 
   -- build Latex code starting with preamble and adding rest to it
-  texFront("\\begin{samepage}\n\n\\ex. \\label{"..ID.."} ", preamble)
+  if samePage == true then
+    texFront("\\begin{samepage}\n\n\\ex. \\label{"..ID.."} ", preamble)
+  else
+    texFront("\n\\ex. \\label{"..ID.."} ", preamble)
+  end
 
   for i=1,#kind do
     if kind[i] == "single" then
 
       line = texSquashMulti(parsedDiv.examples[i])
 
-      if #kind > 1 and i == 1 then 
+      if #kind > 1 and i == 1 then
         texFront("\n  \\a. ", judgements[i])
       elseif #kind > 1 and i > 1 then
         texFront("\n  \\b. ", judgements[i])
@@ -1132,7 +1155,7 @@ function texMakeLinguex (parsedDiv)
       source = parsedDiv.examples[i].source
       gloss  = parsedDiv.examples[i].gloss
       trans  = parsedDiv.examples[i].trans.content
-      
+
       source = texCombine(source)
       gloss  = texCombine(gloss)
 
@@ -1140,7 +1163,7 @@ function texMakeLinguex (parsedDiv)
         header = pandoc.List()
       end
 
-      if #kind > 1 and i == 1 then 
+      if #kind > 1 and i == 1 then
         texFront("\n  \\a. ", header)
       elseif #kind > 1 and i > 1 then
         texFront("\n  \\b. ", header)
@@ -1161,7 +1184,11 @@ function texMakeLinguex (parsedDiv)
 
     end
   end
-  texEnd("\n\n\\end{samepage}", preamble)
+  if samePage == true then
+    texEnd("\n\n\\end{samepage}", preamble)
+  else
+    texEnd("\n", preamble)
+  end
   return pandoc.Plain(preamble)
 end
 
@@ -1177,10 +1204,10 @@ function texMakeGb4e (parsedDiv)
   local judgements = parsedDiv.judgements
   local line, header, source, gloss, trans
 
-  if preamble == nil then 
-    preamble = pandoc.List() 
+  if preamble == nil then
+    preamble = pandoc.List()
     nopreamble = true
-  else 
+  else
     preamble = preamble.content
   end
 
@@ -1190,10 +1217,10 @@ function texMakeGb4e (parsedDiv)
       judgeMax = judgements[i]
     end
   end
-  local judgeOffset = "\\judgewidth{"..string.gsub(pandoc.utils.stringify(judgeMax), "([#$%&_{}~^])", "\\%1").."}"
+  local judgeOffset = "\\judgewidth{"..string.gsub(pandoc.utils.stringify(judgeMax), "([#$%%&_{}~^])", "\\%1").."}"
 
   for i=1,#kind do
-    if judgements[i] == nil then 
+    if judgements[i] == nil then
       judgements[i] = { pandoc.RawInline("tex","[] { ") }
     else
       judgements[i] = { judgements[i] }
@@ -1203,14 +1230,18 @@ function texMakeGb4e (parsedDiv)
   end
 
   -- build Latex code starting with preamble and adding rest to it
+  if samePage == true then
     texFront("\\begin{samepage}\n\\begin{exe} "..judgeOffset.."\n  \\ex ", preamble)
+  else
+    texFront("\\begin{exe} "..judgeOffset.."\n  \\ex ", preamble)
+  end
 
   for i=1,#kind do
     if kind[i] == "single" then
 
       line = texSquashMulti(parsedDiv.examples[i])
-      
-      if #kind > 1 and i == 1 then 
+
+      if #kind > 1 and i == 1 then
         texFront("\n  \\begin{xlist}\n  \\ex ", judgements[i])
       elseif #kind > 1 and i > 1 then
         texFront("\n  \\ex ", judgements[i])
@@ -1219,7 +1250,7 @@ function texMakeGb4e (parsedDiv)
       else
           texFront("\n  \\sn ", judgements[i])
       end
-      
+
       preamble:extend(judgements[i])
       preamble:extend(line)
       texEnd(" }", preamble)
@@ -1230,7 +1261,7 @@ function texMakeGb4e (parsedDiv)
       source = parsedDiv.examples[i].source
       gloss  = parsedDiv.examples[i].gloss
       trans  = parsedDiv.examples[i].trans.content
-      
+
       source = texCombine(source)
       gloss  = texCombine(gloss)
 
@@ -1239,7 +1270,7 @@ function texMakeGb4e (parsedDiv)
       else texFront("\n       ", header)
       end
 
-      if #kind > 1 and i == 1 then 
+      if #kind > 1 and i == 1 then
         texFront("\n      \\begin{xlist}\n  \\ex ", judgements[i])
       elseif #kind > 1 and i > 1 then
         texFront("\n  \\ex ", judgements[i])
@@ -1262,7 +1293,11 @@ function texMakeGb4e (parsedDiv)
     end
   end
   if #kind > 1 then texEnd("\n  \\end{xlist}", preamble) end
-  texEnd("\n  \\label{"..ID.."}\n\\end{exe}\n\\end{samepage}", preamble)
+  if samePage == true then
+    texEnd("\n  \\label{"..ID.."}\n\\end{exe}\n\\end{samepage}", preamble)
+  else
+    texEnd("\n  \\label{"..ID.."}\n\\end{exe}", preamble)
+  end
   return pandoc.Plain(preamble)
 end
 
@@ -1278,10 +1313,10 @@ function texMakeLangsci (parsedDiv)
   local judgements = parsedDiv.judgements
   local line, header, source, gloss, trans
 
-  if preamble == nil then 
-    preamble = pandoc.List() 
+  if preamble == nil then
+    preamble = pandoc.List()
     nopreamble = true
-  else 
+  else
     preamble = preamble.content
   end
 
@@ -1291,7 +1326,7 @@ function texMakeLangsci (parsedDiv)
       judgeMax = judgements[i]
     end
   end
-  local judgeOffset = "\\judgewidth{"..string.gsub(pandoc.utils.stringify(judgeMax), "([#$%&_{}~^])", "\\%1").."}"
+  local judgeOffset = "\\judgewidth{"..string.gsub(pandoc.utils.stringify(judgeMax), "([#$%%&_{}~^])", "\\%1").."}"
 
   for i=1,#kind do
     if judgements[i] == nil then
@@ -1320,25 +1355,29 @@ function texMakeLangsci (parsedDiv)
   else
     texFront("\\ea "..judgeOffset.." \\label{"..ID.."} ", preamble)
   end
-  texFront("\\begin{samepage}\n", preamble)
+  if samePage == true then
+    texFront("\\begin{samepage}\n", preamble)
+  else
+    texFront("", preamble)
+  end
 
   for i=1,#kind do
     if kind[i] == "single" then
 
       line = texSquashMulti(parsedDiv.examples[i])
-      
+
       if #kind == 1 and nopreamble ~= true then
         texEnd("\\\\", preamble)
       end
 
-      if #kind > 1 and i == 1 then 
+      if #kind > 1 and i == 1 then
         texFront("\n  \\ea ", judgements[i])
       elseif #kind > 1 and i > 1 then
         texFront("\n  \\ex ", judgements[i])
       else
         texFront("\n  ", judgements[i])
       end
-      
+
       preamble:extend(judgements[i])
       preamble:extend(line)
 
@@ -1352,18 +1391,18 @@ function texMakeLangsci (parsedDiv)
       source = parsedDiv.examples[i].source
       gloss  = parsedDiv.examples[i].gloss
       trans  = parsedDiv.examples[i].trans.content
-      
+
       source = texCombine(source)
       gloss  = texCombine(gloss)
 
       if pandoc.utils.stringify(header) == "" then
         header = pandoc.List()
-      else 
+      else
         texFront("\n       ", header)
         texEnd("\\\\", header)
       end
 
-      if #kind > 1 and i == 1 then 
+      if #kind > 1 and i == 1 then
         texFront("\n  \\ea ", judgements[i])
         preamble:extend(judgements[i])
       elseif #kind > 1 and i > 1 then
@@ -1385,7 +1424,11 @@ function texMakeLangsci (parsedDiv)
     end
   end
   if #kind > 1 then texEnd("\n  \\z", preamble) end
-  texEnd("\n\\z\n\\end{samepage}", preamble)
+  if samePage == true then
+    texEnd("\n\\z\n\\end{samepage}", preamble)
+  else
+    texEnd("\n\\z", preamble)
+  end
   return pandoc.Plain(preamble)
 end
 
@@ -1428,7 +1471,7 @@ function resolveNextrefs (cite)
   local distN = 0
   local sequenceN = string.match(cite.content[1].text, "([n]+)ext")
   if sequenceN ~= nil then distN = string.len(sequenceN) end
-  
+
   if distN > 0 then
     for i=order,#indexRef do
       if tonumber(indexRef[i]) == nil then
@@ -1443,7 +1486,7 @@ function resolveNextrefs (cite)
   local distL = 0
   local sequenceL = string.match(cite.content[1].text, "([l]+)ast")
   if sequenceL ~= nil then distL= string.len(sequenceL) end
-  
+
   if distL > 0 then
     for i=order,1,-1 do
       if tonumber(indexRef[i]) == nil then
@@ -1463,8 +1506,8 @@ end
 function removeTmpTargetrefs (cite)
   -- remove temporary cites for resolving Next-style reference
   if cite.content[1].text == "@Target" then
-    return pandoc.Plain({})
-  end 
+    return pandoc.Str("")
+  end
 end
 
 ------------------------------------------
@@ -1474,8 +1517,8 @@ function makeCrossrefs (cite)
   local id = cite.citations[1].id
 
   -- ignore other "cite" elements
-  if indexEx[id] ~= nil then 
-    
+  if indexEx[id] ~= nil then
+
     -- only make suffix if there is something there
     local suffix = ""
     if #cite.citations[1].suffix > 0 then
@@ -1485,8 +1528,7 @@ function makeCrossrefs (cite)
 
     -- prevent Latex error when user sets xrefSuffixSep to space or nothing
     if FORMAT:match "latex" then
-      if xrefSuffixSep == ""  or -- empty
-        xrefSuffixSep == " " or -- space
+      if xrefSuffixSep == " " or -- space
         xrefSuffixSep == " "    -- non-breaking space
       then
         xrefSuffixSep = "\\," -- set to thin space
@@ -1500,7 +1542,7 @@ function makeCrossrefs (cite)
       else
         return pandoc.RawInline("latex", "(\\ref{"..id.."}"..suffix..")")
       end
-    else	
+    else
       return pandoc.Link("("..indexEx[id]..suffix..")", "#"..id)
     end
 
@@ -1526,7 +1568,5 @@ return {
    -- now finally all cross-references can be set
    { Cite = makeCrossrefs }
 }
-
-
 
 
