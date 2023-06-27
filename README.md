@@ -1,4 +1,4 @@
-# Pandoc Template for NTU Thesis
+# Pandoc Template for NTU Thesis 
 
 - [HTML](https://yongfu.name/thesis/)
 - [Overleaf](https://www.overleaf.com/docs?snip_uri=https://yongfu.name/thesis/overleaf.zip&engine=xelatex&main_document=main.tex)
